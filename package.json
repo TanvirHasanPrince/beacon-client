@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "fonts": "^0.0.2",
     "lottie-react": "^2.4.0",
-    "next": "14.2.3",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
