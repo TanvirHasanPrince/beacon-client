@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar/page";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "900"],
+  style: ["italic", "normal"],
+  variable: "--font-nunito",
+});
 
 export const metadata: Metadata = {
   title: "Beacon",
@@ -18,8 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     
-      <body className={inter.className}>{children}</body>
+      <body className={`${nunito.className}`}>{children}</body>
     </html>
   );
 }

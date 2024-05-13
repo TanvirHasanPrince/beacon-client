@@ -4,16 +4,11 @@ import Lottie from "lottie-react";
 import yoga from "../../assets/HomePage/HomePage.json";
 import connect from "../../assets/HomePage/connect.json";
 import { Nunito } from "next/font/google";
-const nunito = Nunito({
-  weight: "600",
-  subsets: ["latin"],
-});
-
 const HomePage = () => {
   return (
     <div>
-      <section className={`${nunito.className} text-center h-screen`}>
-        <p className="">
+      <section className={`text-center h-screen`}>
+        <p className={` text-center`}>
           Connecting Hearts, Healing Minds <br />
           <span className="text-red-600">
             Your Path to Genuine Connections and Support
