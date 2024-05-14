@@ -3,6 +3,7 @@ import React from "react";
 import Lottie from "lottie-react";
 import yoga from "../../assets/HomePage/HomePage.json";
 import connect from "../../assets/HomePage/connect.json";
+import Link from "next/link";
 
 const HomePage = () => {
   return (
@@ -20,21 +21,9 @@ const HomePage = () => {
             Join us on a journey of healing and companionship.
           </span>
         </p>
-      </section>
-
-      <section className="text-center h-screen">
-        <p className="uppercase">Mental Health Wellness</p>
-        <Lottie animationData={yoga} loop={true} />
-      </section>
-
-      <section className="text-center h-screen">
-        <p className="uppercase">Mental Health Wellness</p>
-        <Lottie animationData={yoga} loop={true} />
-      </section>
-
-      <section className="text-center h-screen">
-        <p className="uppercase">Mental Health Wellness</p>
-        <Lottie animationData={yoga} loop={true} />
+        <Link href={"/login"}>
+          <button className="px-10 py-4 bg-red-700 text-white"> Login </button>
+        </Link>
       </section>
     </div>
   );
