@@ -1,14 +1,13 @@
 "use client";
 import { Button, Col, Row } from "antd";
-
 import { SubmitHandler } from "react-hook-form";
-
 import { isLoggedIn, storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Form from "../forms/Form";
 import FormInput from "../forms/FormInput";
 import { useUserLoginMutation } from "@/redux/api/authApi";
+import BeaconLogin from "../ui/BeaconLogin";
 
 type FormValues = {
   id: string;
@@ -22,20 +21,21 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // console.log(isLoggedIn());
   const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       setButtonDisabled(true);
       const res = await userLogin({ ...data }).unwrap();
       console.log(res);
 
-      if (res?.token) {
-        router.push("/profile");
+      if (res?.success) {
+        router.push("/");
       }
-      storeUserInfo({ token: res?.token });
+      storeUserInfo({ token: res?.data?.token });
     } catch (err: any) {
       if (err) {
+        console.log(err);
         setLoginError(true);
         setButtonDisabled(false);
       }
@@ -44,20 +44,11 @@ const LoginPage = () => {
   };
 
   return (
-    <Row
-      justify="center"
-      align="middle"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      {/* <Col sm={12} md={16} lg={10}>
-        <LoginAnimation></LoginAnimation>
-      </Col> */}
+    <Row justify="center" align="middle" style={{ paddingTop: "100px" }}>
+      <Col sm={12} md={16} lg={8}>
+        <BeaconLogin></BeaconLogin>
+      </Col>
       <Col sm={12} md={8} lg={8}>
-        <h1>Login please!</h1>
-
-        <p>(Use 123456 for admin login)</p>
         <div>
           {loginError && (
             <p style={{ margin: "0 auto", textAlign: "center", color: "red" }}>
@@ -72,11 +63,11 @@ const LoginPage = () => {
               }}
             >
               <FormInput
-                name="phoneNumber"
+                name="email"
                 type="text"
                 size="large"
-                label="Phone number"
-                placeholder="Type your phone number"
+                label="Email"
+                placeholder="email@gmail.com"
               />
             </div>
             <div
@@ -88,7 +79,7 @@ const LoginPage = () => {
                 name="password"
                 type="password"
                 size="large"
-                label="User Password"
+                label="Password"
                 placeholder="Type your password"
               />
             </div>
