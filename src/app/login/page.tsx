@@ -1,29 +1,37 @@
 "use client";
-import React, { useState } from "react";
+
+import { useForm } from "react-hook-form";
 import { useMemberLoginMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
-// Import the storeUserInfo function
+
+type Email = string;
+type Password = string;
+
+interface FormData {
+  email: Email;
+  password: Password;
+}
 
 const LoginForm = () => {
-  const [email, setEmail] = useState(""); // State for email input
-  const [password, setPassword] = useState(""); // State for password input
-  const [memberLogin, { isLoading }] = useMemberLoginMutation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>();
+
+  const [memberLogin] = useMemberLoginMutation();
   const router = useRouter();
 
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const onSubmit = async (data: FormData) => {
     try {
-      const response = await memberLogin({ email, password }); // Call the login mutation with email and password
+      const response = await memberLogin(data);
 
-      const token = response.data.token; // Assuming the token is returned in the response
-
-      if (!token) {
-        console.log(`Token not found`);
+      if (response.data.success) {
+        const token = response.data.data.token;
+        storeUserInfo({ token });
+        router.push("/");
       }
-
-      // Store the token in local storage
-      storeUserInfo({ token });
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -31,38 +39,41 @@ const LoginForm = () => {
 
   return (
     <form
-      onSubmit={handleLogin}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex justify-center items-center flex-col p-8 mt-8"
     >
       <div>
         <label className="block mb-2">Email</label>
         <input
           type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} // Update email state on input change
-          className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          required
+          {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+          className={`w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500 ${
+            errors.email ? "border-red-500" : ""
+          }`}
         />
+        {errors.email && (
+          <p className="text-red-500">Please enter a valid email address</p>
+        )}
       </div>
       <div className="mt-4">
         <label className="block mb-2">Password</label>
         <input
           type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          change
-          className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          required
+          {...register("password", { required: true })}
+          className={`w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500 ${
+            errors.password ? "border-red-500" : ""
+          }`}
         />
+        {errors.password && (
+          <p className="text-red-500">Please enter your password</p>
+        )}
       </div>
       <button
         type="submit"
         className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        disabled={isLoading}
+        disabled={isSubmitting}
       >
-        {isLoading ? "Logging in..." : "Login"}
+        {isSubmitting ? "Logging in..." : "Login"}
       </button>
     </form>
   );
