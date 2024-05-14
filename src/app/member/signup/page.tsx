@@ -1,7 +1,8 @@
 "use client";
 import { useAddMemberMutation } from "@/redux/api/memberApi";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import "../../../helpers/envConfig";
 
 const MemberSignUpPage = () => {
   const {
@@ -15,10 +16,34 @@ const MemberSignUpPage = () => {
     useAddMemberMutation();
 
   const onSubmit = async (data) => {
+    console.log(data.profilePhoto[0]);
+    const rawImage = data.profilePhoto[0];
+
+    const formData = new FormData();
+    formData.append("file", rawImage);
+    formData.append("upload_preset", "beaconPreset"); // Corrected typo
+
     try {
+      const uploadResponse = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Image upload failed`);
+      }
+
+      const imageData = await uploadResponse.json();
+      console.log(imageData.secure_url);
+
+      data.profilePhoto = imageData.secure_url;
       // Call the addMemberMutation function with the form data
       const response = await addMemberMutation(data);
-      console.log(response); // Handle success response here
+      console.log(response);
+      // Handle success response here
     } catch (error) {
       console.error("An error occurred:", error); // Handle error here
     }
@@ -114,12 +139,18 @@ const MemberSignUpPage = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block mb-2">Profile Photo</label>
+          <label className="block mb-2" htmlFor="profilePhoto">
+            Profile Photo
+          </label>
           <input
-            type="text"
-            {...register("profilePhoto")}
+            type="file"
+            {...register("profilePhoto", { required: true })}
+            id="profilePhoto"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
           />
+          {errors.profilePhoto && (
+            <span className="text-red-500">Please upload a profile photo.</span>
+          )}
         </div>
         <button
           type="submit"
@@ -128,7 +159,6 @@ const MemberSignUpPage = () => {
           Submit
         </button>
       </form>
-      {isError && <p className="text-red-500">{error.message}</p>}
     </div>
   );
 };

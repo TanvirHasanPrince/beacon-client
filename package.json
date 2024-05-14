@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
+    "@next/env": "^14.2.3",
     "@reduxjs/toolkit": "^2.2.4",
     "axios": "^1.6.8",
+    "cloudinary-react": "^1.8.1",
     "fonts": "^0.0.2",
     "jwt-decode": "^4.0.0",
     "lottie-react": "^2.4.0",
