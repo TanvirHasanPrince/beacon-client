@@ -1,17 +1,32 @@
 "use client";
+
 import { Button, Col, Row } from "antd";
 import { SubmitHandler } from "react-hook-form";
-import { isLoggedIn, storeUserInfo } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Form from "../forms/Form";
 import FormInput from "../forms/FormInput";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import BeaconLogin from "../ui/BeaconLogin";
+import { storeUserInfo } from "@/services/auth.service";
 
 type FormValues = {
-  id: string;
+  email: string;
   password: string;
+};
+
+const loginButtonStyle = {
+  margin: "15px auto", // Adjusted margin for centering
+  padding: "0 30px",
+  color: "white",
+  backgroundColor: "#FF5252", // Red color
+  border: "none",
+  borderRadius: "6px",
+  fontSize: "1.1rem",
+  fontWeight: "bold",
+  letterSpacing: "0.5px",
+  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Box shadow for depth
+  transition: "background-color 0.3s ease", // Smooth transition
 };
 
 const LoginPage = () => {
@@ -46,9 +61,11 @@ const LoginPage = () => {
   return (
     <Row justify="center" align="middle" style={{ paddingTop: "100px" }}>
       <Col sm={12} md={16} lg={8}>
-        <BeaconLogin></BeaconLogin>
+        <BeaconLogin />
       </Col>
-      <Col sm={12} md={8} lg={8}>
+      <Col sm={12} md={8} lg={8} style={{ textAlign: "center" }}>
+        {" "}
+        {/* Added justify="center" */}
         <div>
           {loginError && (
             <p style={{ margin: "0 auto", textAlign: "center", color: "red" }}>
@@ -88,6 +105,7 @@ const LoginPage = () => {
                 type="primary"
                 htmlType="submit"
                 disabled={isButtonDisabled}
+                style={loginButtonStyle}
               >
                 Checking credentials
               </Button>
@@ -96,6 +114,7 @@ const LoginPage = () => {
                 type="primary"
                 htmlType="submit"
                 disabled={isButtonDisabled}
+                style={loginButtonStyle}
               >
                 Login
               </Button>
