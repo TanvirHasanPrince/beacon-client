@@ -1,6 +1,7 @@
 "use client";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
+import Link from "next/link";
 import React from "react";
 import {
   FaCalendarAlt,
@@ -26,6 +27,11 @@ const EventPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <Link href={"/member/events/addEvent"}>
+        <button className="bg-red-500 py-2 px-8 text-white mb-4">
+          Add Event
+        </button>
+      </Link>
       <h1 className="text-2xl font-bold mb-8 text-gray-800">Your Events</h1>
       <div className="p-8">
         {events.map((event: any) => (
