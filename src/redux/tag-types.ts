@@ -2,11 +2,15 @@ export enum tagTypes {
   member = "member",
   doctor = "doctor",
   admin = "admin",
+  pet = "pet",
 }
 
-export const tagTypesList = [tagTypes.member, tagTypes.doctor, tagTypes.admin];
-
-
+export const tagTypesList = [
+  tagTypes.member,
+  tagTypes.doctor,
+  tagTypes.admin,
+  tagTypes.pet,
+];
 
 /*
 These tags gets used like this:

@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers";
 import Navbar from "@/components/navbar/page";
+import { Toaster } from "react-hot-toast";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
         <body
           className={`${nunito.className} bg-gradient-to-r from-violet-100 to-pink-100`}
         >
+          <Toaster position="top-center" />
           <Navbar />
           {children}
         </body>
