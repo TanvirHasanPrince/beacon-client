@@ -3,7 +3,7 @@ import React from "react";
 import Lottie from "lottie-react";
 import connect from "../../assets/HomePage/connect.json";
 import Link from "next/link";
-import { Button } from "antd";
+
 
 const HomePage = () => {
   const loginButtonStyle = {

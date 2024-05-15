@@ -8,7 +8,7 @@ import Form from "../forms/Form";
 import FormInput from "../forms/FormInput";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import BeaconLogin from "../ui/BeaconLogin";
-import { storeUserInfo } from "@/services/auth.service";
+import { getUserInfo, storeUserInfo } from "@/services/auth.service";
 
 type FormValues = {
   email: string;
@@ -36,6 +36,9 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+   const { role } = getUserInfo() as any;
+   console.log(role);
+
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
@@ -45,7 +48,7 @@ const LoginPage = () => {
       console.log(res);
 
       if (res?.success) {
-        router.push("/");
+        router.push("/profile");
       }
       storeUserInfo({ token: res?.data?.token });
     } catch (err: any) {
