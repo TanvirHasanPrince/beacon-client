@@ -28,13 +28,16 @@ const PetsPage = () => {
       <div className="grid grid-cols-1 gap-4">
         <h1 className="text-2xl font-bold mb-4">Your Pets</h1>
         {pets.map((pet: any) => (
-          <div key={pet.id} className="p-16 border border-gray-300 rounded-md ">
+          <div
+            key={pet.id}
+            className=" flex flex-col items-center justify-center border border-gray-300 rounded-md p-12"
+          >
             <img
               src={pet.photo}
               alt={pet.petName}
               className="w-24 h-24 mb-2 rounded-full shadow-lg"
             />
-            <h3 className="text-lg font-semibold mb-1 text-center">
+            <h3 className="text-lg font-semibold mb-1 text-left">
               {pet.petName}
             </h3>
             <p className="text-sm mb-1">
