@@ -11,7 +11,7 @@ export const petApi = baseApi.injectEndpoints({
         method: "POST",
         data: data,
       }),
-      invalidatesTags: [tagTypes.pet],
+      invalidatesTags: [tagTypes.member],
     }),
     pets: build.query({
       query: (arg: Record<string, any>) => ({
