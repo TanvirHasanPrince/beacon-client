@@ -3,6 +3,7 @@ import React from "react";
 import { FaCalendarAlt, FaTags, FaInfoCircle } from "react-icons/fa";
 import { getUserInfo } from "@/services/auth.service";
 import { useMemberQuery } from "@/redux/api/memberApi";
+import Link from "next/link";
 
 const MyJournalsPage = () => {
   const { userId } = getUserInfo() as any;
@@ -20,6 +21,11 @@ const MyJournalsPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <Link href={"/member/journals/addJournal"}>
+        <button className="bg-red-500 py-2 px-8 text-white mb-4">
+          Add Journal
+        </button>
+      </Link>
       <h1 className="text-2xl font-bold mb-8 text-gray-800">My Journals</h1>
       <div className="p-8">
         {journals.map((journal: any) => (
