@@ -3,6 +3,7 @@ import { useAddMemberMutation } from "@/redux/api/memberApi";
 import React from "react";
 import { useForm } from "react-hook-form";
 import "../../../../helpers/envConfig";
+import { ENUM_OF_INTERESTS } from "@/enums/sharedEnums";
 
 const MemberSignUpPage = () => {
   const {
@@ -13,7 +14,16 @@ const MemberSignUpPage = () => {
   const [addMemberMutation, { isLoading, isError, error }] =
     useAddMemberMutation();
 
-  const onSubmit = async (data:any) => {
+  // Array of interests
+  const interests = [
+    "Football",
+    "Gardening",
+    "Reading",
+    "Cooking",
+    "Traveling",
+  ];
+
+  const onSubmit = async (data: any) => {
     const rawImage = data.profilePhoto[0];
     const formData = new FormData();
     formData.append("file", rawImage);
@@ -117,11 +127,17 @@ const MemberSignUpPage = () => {
           <select
             {...register("interest")}
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+            multiple // enable multiple selection
           >
-            <option value="Football">Football</option>
-            <option value="Gardening">Gardening</option>
+            {/* Map over the values of the ENUM_OF_INTERESTS enum to generate options */}
+            {Object.values(ENUM_OF_INTERESTS).map((interest) => (
+              <option key={interest} value={interest}>
+                {interest}
+              </option>
+            ))}
           </select>
         </div>
+
         <div className="mb-4 w-full">
           <label className="block mb-2">Bio</label>
           <textarea
