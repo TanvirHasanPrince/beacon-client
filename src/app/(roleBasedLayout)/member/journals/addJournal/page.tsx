@@ -23,7 +23,6 @@ const AddJournalEntry = () => {
     try {
       const { userId } = getUserInfo() as any;
       data.memberId = userId;
-      console.log(data);
       await addJournalEntry(data);
       toast.success(`Journal entry added successfully!`);
       reset();
