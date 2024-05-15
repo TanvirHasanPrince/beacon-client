@@ -1,6 +1,6 @@
 "use client";
-import { useMemberQuery } from "@/redux/api/memberApi";
-import { getUserInfo } from "@/services/auth.service";
+import React from "react";
+
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -9,23 +9,24 @@ import {
   FaInfoCircle,
   FaClock,
 } from "react-icons/fa";
-import React from "react";
 import moment from "moment";
+import { useDoctorQuery } from "@/redux/api/doctorApi";
+import { getUserInfo } from "@/services/auth.service";
 
-const MyProfilePage = () => {
+const DoctorProfilePage = () => {
   const { role, userId } = getUserInfo() as any;
 
-  const { data: memberData, isLoading, isError } = useMemberQuery(userId);
+  const { data: doctorData, isLoading, isError } = useDoctorQuery(userId);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return <div>Loading...</div>;
   }
 
-  if (isError || !memberData) {
+  if (isError || !doctorData) {
     return <div>Error occurred while fetching data.</div>; // Render error state if data fetching fails
   }
 
-  // Destructure member data
+  // Destructure doctor data
   const {
     firstName,
     middleName,
@@ -33,17 +34,24 @@ const MyProfilePage = () => {
     email,
     mobile,
     country,
-    bio,
-    profilePhoto,
+    workExperience,
+    licenseNumber,
+    affiliation,
+    specializations,
+    verificationDocuments,
+    availability,
     createdAt,
     updatedAt,
-    // Add other fields if needed
-  } = memberData.data;
+    profilePhoto,
+  } = doctorData.data;
+
+  console.log(doctorData);
 
   const formattedCreatedAt = moment(createdAt).format("MMMM Do YYYY, h:mm a");
   const formattedUpdatedAt = moment(updatedAt).format("MMMM Do YYYY, h:mm a");
 
   return (
+    // <div>here</div>
     <>
       <div className="flex flex-col items-center pb-10">
         <img
@@ -56,7 +64,7 @@ const MyProfilePage = () => {
         </h5>
 
         <div className=" flex flex-col items-center justify-center overflow-hidden w-96">
-          {/* Render member information */}
+          {/* Render doctor information */}
           <div className="p-4">
             <div className="mb-2">
               <FaUser className="inline-block mr-2  text-red-500" />{" "}
@@ -80,10 +88,50 @@ const MyProfilePage = () => {
             </div>
             <div className="mb-2">
               <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for bio */}
-              {bio}
+              {/* Icon for work experience */}
+              {workExperience}
             </div>
-
+            <div className="mb-2">
+              <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
+              {/* Icon for license number */}
+              {licenseNumber}
+            </div>
+            <div className="mb-2">
+              <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
+              {/* Icon for affiliation */}
+              {affiliation}
+            </div>
+            <div className="mb-2">
+              <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
+              {/* Icon for specializations */}
+              {specializations}
+            </div>
+            {/* Render verification documents */}
+            {verificationDocuments && verificationDocuments.length > 0 && (
+              <div className="mb-2">
+                <span className="font-semibold">Verification Documents:</span>
+                <div>
+                  {verificationDocuments.map((doc: any, index: any) => (
+                    <img
+                      key={index}
+                      src={doc}
+                      alt={`Verification Document ${index}`}
+                      className="w-24 h-24 mx-2"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="mb-2">
+              <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
+              {/* Icon for availability */}
+              <span className="font-semibold">Availability:</span>
+              <ul>
+                {availability.map((day: string, index: number) => (
+                  <li key={index}>{day}</li>
+                ))}
+              </ul>
+            </div>
             <div className="mb-2">
               <span className="font-semibold">
                 <FaClock className="inline-block mr-2  text-red-500" />
@@ -105,4 +153,4 @@ const MyProfilePage = () => {
   );
 };
 
-export default MyProfilePage;
+export default DoctorProfilePage;
