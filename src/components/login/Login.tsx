@@ -11,6 +11,8 @@ import BeaconLogin from "../ui/BeaconLogin";
 import { getUserInfo, storeUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 
+
+
 type FormValues = {
   email: string;
   password: string;
@@ -132,6 +134,17 @@ const LoginPage = () => {
                     style={loginButtonStyle}
                   >
                     Sign Up
+                  </Button>
+                </Link>
+                <p> Are you a mental health professional? </p>
+                <Link href={"/doctor/signup"} className="flex flex-row">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={isButtonDisabled}
+                    style={loginButtonStyle}
+                  >
+                    Sign Up Here 🧑🏻‍⚕️
                   </Button>
                 </Link>
               </div>
