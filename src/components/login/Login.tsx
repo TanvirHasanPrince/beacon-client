@@ -51,7 +51,7 @@ const LoginPage = () => {
       console.log(res);
 
       if (res?.success) {
-        router.push("/profile");
+        router.push("/member/myprofile");
       }
       storeUserInfo({ token: res?.data?.token });
     } catch (err: any) {

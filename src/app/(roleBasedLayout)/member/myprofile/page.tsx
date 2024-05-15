@@ -13,6 +13,7 @@ import React from "react";
 import moment from "moment";
 
 const MyProfilePage = () => {
+
   const { role, userId } = getUserInfo() as any;
   console.log(userId);
   const { data: memberData, isLoading, isError } = useMemberQuery(userId);

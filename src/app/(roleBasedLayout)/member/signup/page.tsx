@@ -35,9 +35,10 @@ const MemberSignUpPage = () => {
         { method: "POST", body: formData }
       );
 
-      if (!uploadResponse.ok) {
-        throw new Error("Image upload failed");
-      }
+
+    //   if (!uploadResponse.ok) {
+    //     throw new Error("Image upload failed");
+    //   }
 
       const imageData = await uploadResponse.json();
       data.profilePhoto = imageData.secure_url;
