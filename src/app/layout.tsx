@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers";
+import Navbar from "@/components/navbar/page";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -24,7 +25,12 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
-        <body className={`${nunito.className}`}>{children}</body>
+        <body
+          className={`${nunito.className} bg-gradient-to-r from-violet-100 to-pink-100`}
+        >
+          <Navbar />
+          {children}
+        </body>
       </html>
     </Providers>
   );
