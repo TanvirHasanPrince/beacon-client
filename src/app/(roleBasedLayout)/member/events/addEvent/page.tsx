@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAddEventMutation } from "@/redux/api/eventApi";
 import { getUserInfo } from "@/services/auth.service";
 import { toast } from "react-hot-toast";
+import { ENUM_OF_EVENT_CATEGORIES } from "@/enums/sharedEnums";
 
 const AddEvent = () => {
   const {
@@ -16,8 +17,19 @@ const AddEvent = () => {
     useAddEventMutation();
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    const currentDateTime = new Date().toISOString().slice(0, 16);
+    const dateTimeInput = document.getElementById(
+      "date_time"
+    ) as HTMLInputElement | null;
+    if (dateTimeInput) {
+      dateTimeInput.min = currentDateTime;
+    }
+  }, []);
+
   const onSubmit = async (data: any) => {
     setSubmitting(true);
+
     try {
       const { userId } = getUserInfo() as any;
       data.memberId = userId;
@@ -33,6 +45,9 @@ const AddEvent = () => {
     }
     setSubmitting(false);
   };
+
+  // Get current date and time in ISO string format
+  const currentDate = new Date().toISOString().slice(0, 16); // Remove milliseconds
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-12">
@@ -67,6 +82,7 @@ const AddEvent = () => {
           <input
             type="datetime-local"
             {...register("date_time", { required: true })}
+            id="date_time"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
           />
           {errors.date_time && (
@@ -93,12 +109,16 @@ const AddEvent = () => {
         </div>
         <div className="mb-4 w-full">
           <label className="block mb-2">Categories</label>
-          <input
-            type="text"
+          <select
             {...register("categories")}
-            placeholder="Categories"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          />
+          >
+            {Object.values(ENUM_OF_EVENT_CATEGORIES).map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4 w-full">
           <label className="block mb-2">RSVP Link</label>

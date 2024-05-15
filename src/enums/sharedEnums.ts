@@ -62,3 +62,26 @@ export enum ENUM_OF_INTERESTS {
   MENTAL_HEALTH_AWARENESS = "Mental Health Awareness",
   EDUCATION_REFORM = "Education Reform",
 }
+
+export enum ENUM_OF_EVENT_CATEGORIES {
+  ARTS_AND_CULTURE = "Arts & Culture",
+  BUSINESS_AND_NETWORKING = "Business & Networking",
+  CHARITY_AND_CAUSES = "Charity & Causes",
+  COMMUNITY_AND_LIFESTYLE = "Community & Lifestyle",
+  EDUCATION_AND_LEARNING = "Education & Learning",
+  FASHION_AND_BEAUTY = "Fashion & Beauty",
+  FOOD_AND_DRINK = "Food & Drink",
+  HEALTH_AND_WELLNESS = "Health & Wellness",
+  HOBBIES_AND_SPECIAL_INTEREST = "Hobbies & Special Interest",
+  MUSIC = "Music",
+  PERFORMING_ARTS = "Performing Arts",
+  RELIGION_AND_SPIRITUALITY = "Religion & Spirituality",
+  SCIENCE_AND_TECHNOLOGY = "Science & Technology",
+  SPORTS_AND_FITNESS = "Sports & Fitness",
+  TRAVEL_AND_OUTDOOR = "Travel & Outdoor",
+  FILM_AND_MEDIA = "Film & Media",
+  HOME_AND_LIFESTYLE = "Home & Lifestyle",
+  GOVERNMENT_AND_POLITICS = "Government & Politics",
+  ENVIRONMENT_AND_SUSTAINABILITY = "Environment & Sustainability",
+  FAMILY_AND_PARENTING = "Family & Parenting",
+}
