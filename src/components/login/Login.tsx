@@ -9,6 +9,7 @@ import FormInput from "../forms/FormInput";
 import { useUserLoginMutation } from "@/redux/api/authApi";
 import BeaconLogin from "../ui/BeaconLogin";
 import { getUserInfo, storeUserInfo } from "@/services/auth.service";
+import Link from "next/link";
 
 type FormValues = {
   email: string;
@@ -36,8 +37,8 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-   const { role } = getUserInfo() as any;
-   console.log(role);
+  const { role } = getUserInfo() as any;
+  console.log(role);
 
   const router = useRouter();
 
@@ -113,14 +114,27 @@ const LoginPage = () => {
                 Checking credentials
               </Button>
             ) : (
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={isButtonDisabled}
-                style={loginButtonStyle}
-              >
-                Login
-              </Button>
+              <div className="flex flex-col ">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={isButtonDisabled}
+                  style={loginButtonStyle}
+                >
+                  Login
+                </Button>
+                <p> Dont have an account? </p>
+                <Link href={"/member/signup"}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={isButtonDisabled}
+                    style={loginButtonStyle}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
             )}
           </Form>
         </div>
