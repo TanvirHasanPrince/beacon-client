@@ -1,9 +1,13 @@
 "use client";
+import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { role, id } = getUserInfo() as any;
+
+  console.log(role);
 
   return (
     <nav
@@ -56,7 +60,6 @@ const Navbar = () => {
               </button>
             </div>
           </div>
-
           <div
             className={`mt-5 h-screen overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-violet-100 to-pink-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center  ${
               isOpen
@@ -65,6 +68,14 @@ const Navbar = () => {
             }`}
           >
             <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+              {role === "admin" && (
+                <a
+                  href="#"
+                  className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  I am a member
+                </a>
+              )}
               <a
                 href="#"
                 className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
