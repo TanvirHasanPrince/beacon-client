@@ -11,8 +11,6 @@ import BeaconLogin from "../ui/BeaconLogin";
 import { getUserInfo, storeUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 
-
-
 type FormValues = {
   email: string;
   password: string;
@@ -39,9 +37,6 @@ const LoginPage = () => {
   const [loginError, setLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { role } = getUserInfo() as any;
-  console.log(role);
-
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
@@ -51,9 +46,11 @@ const LoginPage = () => {
       console.log(res);
 
       if (res?.success) {
-        router.push("/member/myprofile");
+        storeUserInfo({ token: res?.data?.token });
+        const { role } = getUserInfo() as any;
+        console.log(role);
+        router.push(`/${role}/myProfile`);
       }
-      storeUserInfo({ token: res?.data?.token });
     } catch (err: any) {
       if (err) {
         console.log(err);

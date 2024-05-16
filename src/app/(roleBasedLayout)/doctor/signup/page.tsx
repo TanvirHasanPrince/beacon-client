@@ -17,7 +17,7 @@ const DoctorSignUpPage = () => {
     formState: { errors },
   } = useForm();
   const [addDoctorMutation, { isLoading, isError, error }] =
-    useAddDoctorMutation(); // Use the addDoctorMutation hook
+    useAddDoctorMutation();
 
   const onSubmit = async (data: any) => {
     const rawImage = data.profilePhoto[0];
