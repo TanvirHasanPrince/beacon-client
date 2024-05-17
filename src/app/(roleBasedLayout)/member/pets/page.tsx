@@ -6,7 +6,7 @@ import React from "react";
 
 const PetsPage = () => {
   const { userId } = getUserInfo() as any;
-  const { data: memberData, isLoading, isError } = useMemberQuery(userId);
+  const { data: memberData, isLoading, isError } = useMemberQuery(1);
 
   if (isLoading) {
     return <div>Loading...</div>; // Render loading state while fetching data
@@ -17,6 +17,7 @@ const PetsPage = () => {
   }
 
   const { pets } = memberData.data;
+  console.log(pets);
 
   return (
     <div className="flex flex-col justify-center items-center">
