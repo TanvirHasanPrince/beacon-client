@@ -26,11 +26,6 @@ const DoctorConsultationsPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link href={"/doctor/consultations/createConsultation"}>
-        <button className="bg-red-500 py-2 px-8 text-white mb-4">
-          Add Consultation
-        </button>
-      </Link>
       <h1 className="text-2xl font-bold mb-8 text-gray-800">
         Your Consultations
       </h1>
