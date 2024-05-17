@@ -1,10 +1,18 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { getUserInfo } from "@/services/auth.service";
 import { useDoctorsQuery } from "@/redux/api/doctorApi";
+import Link from "next/link";
+import { useAddConsultationMutation } from "@/redux/api/consultationApi";
+
+interface FormData {
+  startTime: string;
+  endTime: string;
+  doctorId: string;
+}
 
 interface Consultation {
   id: number;
@@ -55,9 +63,10 @@ const CreateConsultationPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
   const [submitting, setSubmitting] = useState(false);
   const { data: doctorsData } = useDoctorsQuery({}) as { data: DoctorsData };
+  const [addConsultation, { isLoading }] = useAddConsultationMutation();
 
   useEffect(() => {
     const currentDateTime = new Date().toISOString().slice(0, 16);
@@ -69,18 +78,34 @@ const CreateConsultationPage = () => {
     }
   }, []);
 
-  const onSubmit = async (data: any) => {
+  const { userId } = getUserInfo() as any;
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     setSubmitting(true);
     try {
       const { userId } = getUserInfo() as any;
-      data.memberId = userId;
-      data.doctorId = parseInt(data.doctorId);
-      data.startDate = new Date(data.startDate).toISOString();
-      data.endDate = new Date(data.endDate).toISOString();
 
-      console.log(data);
+      // Convert date strings to Date objects
+      const startTimeDate = new Date(data.startTime);
+      const endTimeDate = new Date(data.endTime);
+
+      // Check if startTime and endTime are valid dates
+      if (isNaN(startTimeDate.getTime()) || isNaN(endTimeDate.getTime())) {
+        throw new Error("Invalid start or end time");
+      }
+
+      const formData = {
+        startTime: startTimeDate.toISOString(),
+        endTime: endTimeDate.toISOString(),
+        memberId: userId,
+        doctorId: parseInt(data.doctorId),
+        meetingLink: `${process.env.NEXT_PUBLIC_BROWSER_URL}/meetingRoom/${userId}`,
+      };
+
+      await addConsultation(formData).unwrap();
+      toast.success("Consultation added successfully");
     } catch (error) {
-      toast.error("Could not add event");
+      toast.error("Could not add consultation");
       console.error("An error occurred:", error);
     }
     setSubmitting(false);
@@ -99,12 +124,12 @@ const CreateConsultationPage = () => {
           <label className="block mb-2">Start Time</label>
           <input
             type="datetime-local"
-            {...register("startDate", { required: true })}
+            {...register("startTime", { required: true })}
             id="startDate"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
             min={currentDateTime}
           />
-          {errors.startDate && (
+          {errors.startTime && (
             <p className="text-red-500">Start Date and Time are required</p>
           )}
         </div>
@@ -113,11 +138,11 @@ const CreateConsultationPage = () => {
           <input
             min={currentDateTime}
             type="datetime-local"
-            {...register("endDate", { required: true })}
+            {...register("endTime", { required: true })}
             id="endDate"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
           />
-          {errors.endDate && (
+          {errors.endTime && (
             <p className="text-red-500">End Date and Time are required</p>
           )}
         </div>
@@ -142,6 +167,12 @@ const CreateConsultationPage = () => {
           {submitting ? "Adding..." : "Submit"}
         </button>
       </form>
+
+      <Link href={`/meetingRoom/${userId}`}>
+        <button className="bg-red-500 py-2 px-8 text-white mb-4">
+          Join call
+        </button>
+      </Link>
     </div>
   );
 };
