@@ -1,10 +1,12 @@
 "use client";
+import SentimentAnalysisChart from "@/components/ui/SentimentAnalysisChart";
 import { useDoctorQuery } from "@/redux/api/doctorApi";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import React from "react";
 import { FaCalendarAlt, FaUserAlt, FaLink } from "react-icons/fa";
+import SentimentAnalysisPage from "./sentimentAnalysis/page";
 
 const DoctorConsultationsPage = () => {
   const { userId } = getUserInfo() as any;
@@ -25,11 +27,11 @@ const DoctorConsultationsPage = () => {
   const { consultations } = doctorData.data;
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center p-4 sm:p-8">
       <h1 className="text-2xl font-bold mb-8 text-gray-800">
         Your Consultations
       </h1>
-      <div className="p-8">
+      <div className="w-full max-w-4xl">
         {consultations.map((consultation: any) => (
           <ConsultationCard key={consultation.id} consultation={consultation} />
         ))}
@@ -59,29 +61,36 @@ const ConsultationCard = ({ consultation }: { consultation: any }) => {
     .join(" ");
 
   return (
-    <div className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full max-w-3xl">
-      <p className="text-sm mb-2 text-gray-600">
-        <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`Start: ${new Date(consultation.startTime).toLocaleString()}`}
-      </p>
-      <p className="text-sm mb-2 text-gray-600">
-        <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`End: ${new Date(consultation.endTime).toLocaleString()}`}
-      </p>
-      <p className="text-sm mb-2 text-gray-600">
-        <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`Member: ${memberName}`}
-      </p>
-      <a
-        href={consultation.meetingLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-sm mb-2 text-blue-500 hover:text-blue-700 underline"
-      >
-        <FaLink className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        Join Meeting
-      </a>
-    </div>
+    <>
+      <div className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-4 mb-8 w-full sm:w-auto">
+        <p className="text-sm mb-2 text-gray-600">
+          <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+          {`Start: ${new Date(consultation.startTime).toLocaleString()}`}
+        </p>
+        <p className="text-sm mb-2 text-gray-600">
+          <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+          {`End: ${new Date(consultation.endTime).toLocaleString()}`}
+        </p>
+        <p className="text-sm mb-2 text-gray-600">
+          <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+          {`Member: ${memberName}`}
+        </p>
+        <a
+          href={consultation.meetingLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm mb-2 text-blue-500 hover:text-blue-700 underline"
+        >
+          <FaLink className="inline-block h-4 w-4 mr-1 text-gray-400" />
+          Join Meeting
+        </a>
+      </div>
+      <div className="w-full mt-4">
+        <SentimentAnalysisChart
+          memberId={memberData.data.id}
+        ></SentimentAnalysisChart>
+      </div>
+    </>
   );
 };
 

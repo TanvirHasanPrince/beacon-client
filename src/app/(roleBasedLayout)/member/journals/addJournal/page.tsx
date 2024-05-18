@@ -26,9 +26,9 @@ const AddJournalEntry = () => {
 
       // Determine sentiment of the content
       const sentimentResult = getSentiment(data.content);
-      console.log("Sentiment result:", sentimentResult.mood);
+      data.sentimentResult = sentimentResult.mood;
 
-      // await addJournalEntry(data);
+      await addJournalEntry(data);
       toast.success("Journal entry added successfully!");
       reset();
     } catch (error) {
