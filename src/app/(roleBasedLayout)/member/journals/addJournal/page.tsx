@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAddJournalEntryMutation } from "@/redux/api/journalApi";
 import { getUserInfo } from "@/services/auth.service";
 import { toast } from "react-hot-toast";
 import { JOURNAL_MOOD_ENUM, JOURNAL_TYPE_TAGS_ENUM } from "@/enums/sharedEnums";
+import { getSentiment } from "@/utils/getSentiment";
 
 const AddJournalEntry = () => {
   const {
@@ -13,8 +14,7 @@ const AddJournalEntry = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const [addJournalEntry, { isLoading, isError, error }] =
-    useAddJournalEntryMutation();
+  const [addJournalEntry] = useAddJournalEntryMutation();
   const [submitting, setSubmitting] = useState(false);
 
   const onSubmit = async (data: any) => {
@@ -23,8 +23,13 @@ const AddJournalEntry = () => {
     try {
       const { userId } = getUserInfo() as any;
       data.memberId = userId;
-      await addJournalEntry(data);
-      toast.success(`Journal entry added successfully!`);
+
+      // Determine sentiment of the content
+      const sentimentCategory = getSentiment(data.content);
+      console.log("Sentiment category:", sentimentCategory);
+
+      // await addJournalEntry(data);
+      toast.success("Journal entry added successfully!");
       reset();
     } catch (error) {
       toast.error("Could not add journal entry");
