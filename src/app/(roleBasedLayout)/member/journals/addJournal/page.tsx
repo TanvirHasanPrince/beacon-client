@@ -25,8 +25,8 @@ const AddJournalEntry = () => {
       data.memberId = userId;
 
       // Determine sentiment of the content
-      const sentimentCategory = getSentiment(data.content);
-      console.log("Sentiment category:", sentimentCategory);
+      const sentimentResult = getSentiment(data.content);
+      console.log("Sentiment result:", sentimentResult.mood);
 
       // await addJournalEntry(data);
       toast.success("Journal entry added successfully!");
