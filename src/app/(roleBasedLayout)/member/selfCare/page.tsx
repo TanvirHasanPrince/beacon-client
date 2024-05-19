@@ -26,6 +26,68 @@ const SelfCareHomePage = () => {
               </div>
             </Link>
           </div>
+
+          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
+            <Link href={"/member/selfCare/music"}>
+              <Image
+                src={boy_listening_to_music}
+                width={500}
+                height={500}
+                alt="boy_listening_to_music"
+              />
+
+              <div className="py-5 text-center">
+                <p className="block text-xl font-bold text-black">Music</p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
+            <Link href={"/member/selfCare/stories"}>
+              <Image
+                src={girl_reading_book}
+                width={500}
+                height={500}
+                alt="gir_reading_book"
+              />
+
+              <div className="py-5 text-center">
+                <p className="block text-xl font-bold text-black">Stories</p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
+            <Link href={"/member/selfCare/manageAnxiety"}>
+              <Image
+                src={boy_walking_in_forrest}
+                width={500}
+                height={500}
+                alt="boy_walking_in_forrest"
+              />
+
+              <div className="py-5 text-center">
+                <p className="block text-xl font-bold text-black">
+                  Manage Anxiety
+                </p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
+            <Link href={"/member/selfCare/exercises"}>
+              <Image
+                src={girl_exercising}
+                width={500}
+                height={500}
+                alt="girl_exercising"
+              />
+
+              <div className="py-5 text-center">
+                <p className="block text-xl font-bold text-black">Exercises</p>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </>
