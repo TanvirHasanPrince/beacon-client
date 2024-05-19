@@ -127,11 +127,11 @@ const MeditationPage = () => {
 
   return (
     <div className="flex flex-col items-center p-4">
-      <div className="mb-4 overflow-hidden bg-center rounded-3xl">
+      <div className="mb-4 overflow-hidden bg-center rounded-xl">
         <Image
           src={playlist[currentTrackIndex].image}
-          width={250}
-          height={250}
+          width={500}
+          height={500}
           alt="track image"
         />
       </div>
@@ -141,7 +141,7 @@ const MeditationPage = () => {
       </div>
       <button
         onClick={handleClickPlayPause}
-        className="hover:text-gray-200 focus:outline-none mt-4"
+        className="hover:text-gray-200 focus:outline-none py-1 px-4 bg-green-600 text-white rounded-2xl"
       >
         {isPlaying ? "Pause" : "Play"}
       </button>
