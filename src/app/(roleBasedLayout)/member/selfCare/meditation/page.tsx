@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import meditating_girl from "../../../../../assets/self-care/meditation/meditating_girl.jpg";
+import boy_music from "../../../../../assets/self-care/music/boy_listening_to_music.jpg";
 
 const MeditationPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,13 +15,35 @@ const MeditationPage = () => {
     {
       title: "Electrifying Start",
       src: "http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/lose.ogg",
+      image: meditating_girl,
     },
-    { title: "Moonlit Serenade", src: "/path/to/dancing-in-the-moonlight.mp3" },
-    { title: "Tropical Getaway", src: "/path/to/your/tropical-track.mp3" },
-    { title: "Enchanted Forest", src: "/path/to/your/mystical-track.mp3" },
-    { title: "Heartfelt Ballad", src: "/path/to/your/emotional-track.mp3" },
-    { title: "Upbeat Fiesta", src: "/path/to/your/high-energy-track.mp3" },
+    {
+      title: "Moonlit Serenade",
+      src: "/path/to/dancing-in-the-moonlight.mp3",
+      image: boy_music,
+    },
+    // {
+    //   title: "Tropical Getaway",
+    //   src: "/path/to/your/tropical-track.mp3",
+    //   image: track_image3,
+    // },
+    // {
+    //   title: "Enchanted Forest",
+    //   src: "/path/to/your/mystical-track.mp3",
+    //   image: track_image4,
+    // },
+    // {
+    //   title: "Heartfelt Ballad",
+    //   src: "/path/to/your/emotional-track.mp3",
+    //   image: track_image5,
+    // },
+    // {
+    //   title: "Upbeat Fiesta",
+    //   src: "/path/to/your/high-energy-track.mp3",
+    //   image: track_image6,
+    // },
   ]);
+
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   useEffect(() => {
@@ -83,13 +106,25 @@ const MeditationPage = () => {
     }
   }, []);
 
-  const handlePlaylistPlay = (index: any) => {
-    setCurrentTrackIndex(index);
-    setIsPlaying(true);
-    if (audioRef.current) {
-      audioRef.current
-        .play()
-        .catch((error) => console.log("Audio play error:", error));
+  const handlePlaylistPlayPause = (index: any) => {
+    if (currentTrackIndex === index) {
+      if (isPlaying) {
+        audioRef.current?.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current
+          ?.play()
+          .catch((error) => console.log("Audio play error:", error));
+        setIsPlaying(true);
+      }
+    } else {
+      setCurrentTrackIndex(index);
+      setIsPlaying(true);
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .catch((error) => console.log("Audio play error:", error));
+      }
     }
   };
 
@@ -97,10 +132,10 @@ const MeditationPage = () => {
     <div className="flex flex-col items-center p-4">
       <div className="mb-4 overflow-hidden bg-center rounded-3xl">
         <Image
-          src={meditating_girl}
+          src={playlist[currentTrackIndex].image}
           width={350}
           height={350}
-          alt="meditation"
+          alt="track image"
         />
       </div>
       <div className="song-info text-center">
@@ -141,8 +176,8 @@ const MeditationPage = () => {
             }`}
           >
             <p>{track.title}</p>
-            <button onClick={() => handlePlaylistPlay(index)}>
-              {index === currentTrackIndex && isPlaying ? "Playing" : "Play"}
+            <button onClick={() => handlePlaylistPlayPause(index)}>
+              {index === currentTrackIndex && isPlaying ? "Pause" : "Play"}
             </button>
           </div>
         ))}
