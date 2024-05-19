@@ -5,7 +5,7 @@ import meditating_girl from "../../../../assets/self-care/meditation/meditating_
 import boy_listening_to_music from "../../../../assets/self-care/music/boy_listening_to_music.jpg";
 import girl_reading_book from "../../../../assets/self-care/stories/girl_reading_a_book_in_a_room.jpg";
 import boy_walking_in_forrest from "../../../../assets/self-care/manage_anxiety/Boy_walking_in_a_forest.jpg";
-import girl_exercising from "../../../../assets/self-care/exercise/A_girl_running_on_a_scenic_trail.jpg";
+import girl_doing_yoga from "../../../../assets/self-care/yoga/girl_doing_yoga.jpg";
 
 const SelfCareHomePage = () => {
   return (
@@ -75,16 +75,16 @@ const SelfCareHomePage = () => {
           </div>
 
           <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Link href={"/member/selfCare/exercises"}>
+            <Link href={"/member/selfCare/yoga"}>
               <Image
-                src={girl_exercising}
+                src={girl_doing_yoga}
                 width={500}
                 height={500}
                 alt="girl_exercising"
               />
 
               <div className="py-5 text-center">
-                <p className="block text-xl font-bold text-black">Exercises</p>
+                <p className="block text-xl font-bold text-black">Yoga</p>
               </div>
             </Link>
           </div>
