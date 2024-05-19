@@ -9,7 +9,7 @@ const MeditationPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [playlist, setPlaylist] = useState([
@@ -141,7 +141,9 @@ const MeditationPage = () => {
       </div>
       <button
         onClick={handleClickPlayPause}
-        className="hover:text-gray-200 focus:outline-none py-1 px-4 bg-green-600 text-white rounded-2xl"
+        className={`hover:text-gray-200 focus:outline-none mt-4 ${
+          isPlaying ? "bg-red-500 text-white" : "bg-green-500 text-white"
+        } px-4 py-1 rounded-md font-semibold transition-colors duration-300 `}
       >
         {isPlaying ? "Pause" : "Play"}
       </button>
@@ -171,11 +173,11 @@ const MeditationPage = () => {
           </p>
         )}
       </div>
-      <div className="playlist h-40 overflow-y-auto mt-4 w-full">
+      <div className="h-40 overflow-y-auto mt-4 w-full">
         {playlist.map((track, index) => (
           <div
             key={index}
-            className={`playlist-item flex justify-between items-center mb-2 p-2 text-black rounded-2xl ${
+            className={`playlist-item flex justify-between items-center mb-2 p-2 text-black rounded-lg ${
               index === currentTrackIndex ? "bg-[#4cdf9f]" : ""
             }`}
           >
