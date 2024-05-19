@@ -13,98 +13,18 @@ const SelfCareHomePage = () => {
       <div className=" flex flex-col justify-center items-center">
         <div className="mt-8">
           <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Image
-              src={meditating_girl}
-              width={500}
-              height={500}
-              alt="Meditating girl"
-            />
+            <Link href={"/member/selfCare/meditation"}>
+              <Image
+                src={meditating_girl}
+                width={500}
+                height={500}
+                alt="Meditating girl"
+              />
 
-            <div className="py-5 text-center">
-              <Link
-                href="#"
-                className="block text-xl font-bold text-black"
-                role="link"
-              >
-                Meditation
-              </Link>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Image
-              src={boy_listening_to_music}
-              width={500}
-              height={500}
-              alt="Meditating girl"
-            />
-
-            <div className="py-5 text-center">
-              <Link
-                href="#"
-                className="block text-xl font-bold text-black"
-                role="link"
-              >
-                Music
-              </Link>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Image
-              src={girl_reading_book}
-              width={500}
-              height={500}
-              alt="Meditating girl"
-            />
-
-            <div className="py-5 text-center">
-              <Link
-                href="#"
-                className="block text-xl font-bold text-black"
-                role="link"
-              >
-                Stories
-              </Link>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Image
-              src={boy_walking_in_forrest}
-              width={500}
-              height={500}
-              alt="Meditating girl"
-            />
-
-            <div className="py-5 text-center">
-              <Link
-                href="#"
-                className="block text-xl font-bold text-black"
-                role="link"
-              >
-                Manage Anxiety
-              </Link>
-            </div>
-          </div>
-
-          <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
-            <Image
-              src={girl_exercising}
-              width={500}
-              height={500}
-              alt="Meditating girl"
-            />
-
-            <div className="py-5 text-center">
-              <Link
-                href="#"
-                className="block text-xl font-bold text-black"
-                role="link"
-              >
-                Exercises
-              </Link>
-            </div>
+              <div className="py-5 text-center">
+                <p className="block text-xl font-bold text-black">Meditation</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
