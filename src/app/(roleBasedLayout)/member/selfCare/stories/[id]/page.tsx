@@ -8,9 +8,7 @@ interface Params {
 
 const StoryDetailsPage: React.FC<{ params: Params }> = ({ params }) => {
   const { id: storyId } = params;
-  const story = Object.values(stories).find(
-    (story) => story.id === parseInt(storyId)
-  );
+  const story = stories.find((story) => story.id === parseInt(storyId, 10));
 
   if (!story) {
     return <div>Story not found</div>;

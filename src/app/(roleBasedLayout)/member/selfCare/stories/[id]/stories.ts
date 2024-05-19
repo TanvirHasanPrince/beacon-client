@@ -1,9 +1,12 @@
 import seed1 from "../../../../../../assets/self-care/stories/the_seed/seed1.jpg";
 import seed2 from "../../../../../../assets/self-care/stories/the_seed/seed2.jpg";
 import seed3 from "../../../../../../assets/self-care/stories/the_seed/seed3.jpg";
+import mcp1 from "../../../../../../assets/self-care/stories/mcplp/mcp1.jpg";
+import mcp2 from "../../../../../../assets/self-care/stories/mcplp/mcp2.jpg";
+import mcp3 from "../../../../../../assets/self-care/stories/mcplp/mcp3.jpg";
 
-export const stories = {
-  meditation: {
+export const stories = [
+  {
     id: 1,
     title: "The Little Seed",
     content: `The Little Seed nestled deep within the darkness, nestled within the damp earth. It dreamed of sunshine, of stretching its roots and reaching for the sky. But days turned into weeks, and the Little Seed felt nothing but the cold, unyielding pressure of the soil.
@@ -35,4 +38,36 @@ And then, a bee buzzed by, drawn to the sweet nectar the Little Seed offered. A 
     image2: seed2,
     image3: seed3,
   },
-};
+  {
+    id: 2,
+    title: "Michael Phelps' Story of Mental Health",
+    content: `Michael Phelps. The name evokes images of superhuman feats in the pool, a glistening physique propelling him through water with unmatched power and grace. With a record-breaking 28 Olympic medals, he's considered one of the greatest athletes ever. However, beneath the gold-plated exterior, Michael grappled with a different kind of challenge – a battle within.
+
+For years, Michael wrestled with depression and suicidal thoughts. The immense pressure to perform, the constant training, and the overwhelming feeling of emptiness after achieving seemingly impossible goals all took their toll. After the 2012 London Olympics, despite winning a historic haul of medals, Michael found himself in a dark place. He retreated for days, consumed by a despair that overshadowed his victories.
+
+This wasn't a sign of weakness; it was a stark reminder that mental health challenges can touch anyone, regardless of their accomplishments. Michael's story is a beacon of hope, not because he never experienced these struggles, but because he chose to confront them.
+
+He didn't stay trapped in the current of despair. He reached out for help. Therapy provided him with tools to manage his emotions and understand the underlying causes of his depression. He discovered healthier coping mechanisms, like spending time in nature and building a strong support system.
+
+Michael's journey is a testament to the power of seeking help. It shatters the stigma surrounding mental health, especially for men who may feel pressured to portray unwavering strength. His story empowers others to acknowledge their struggles, understand that they're not alone, and take the crucial first step towards healing.
+
+Beyond the Glory: A Look Inside
+
+Imagine the immense pressure Michael faced. Years of grueling training, the constant scrutiny of the media, and the expectation to consistently outperform himself could leave anyone feeling overwhelmed. The immense focus on physical strength often neglects the equally crucial aspect of mental well-being.
+
+Here's where Michael's story takes a powerful turn. By opening up about his struggles, he sheds light on the internal battles even the strongest athletes face. It's a reminder that mental health is just as important as physical fitness, and neglecting it can have devastating consequences.
+
+Finding Your Lifeline: Lessons from Michael
+
+Michael's story offers valuable lessons for anyone struggling with mental health challenges:
+
+Acknowledge Your Struggle: Don't be afraid to admit you're not okay.
+Seek Help: There is no shame in seeking professional help or confiding in a trusted friend or family member.
+Find Healthy Coping Mechanisms: Discover activities that reduce stress and promote emotional well-being, like exercise, meditation, spending time with loved ones, or pursuing hobbies.
+Build a Support System: Surround yourself with people who care for you and understand your struggles.
+Remember, recovery is a journey, not a destination. There will be setbacks, but Michael's story is a testament to the human spirit's resilience. By taking that first step towards seeking help and developing healthy habits, you can navigate your own mental health journey and emerge stronger.`,
+    image1: mcp1,
+    image2: mcp2,
+    image3: mcp3,
+  },
+];
