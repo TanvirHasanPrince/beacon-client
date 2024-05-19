@@ -16,12 +16,19 @@ interface SentimentAnalysisChartProps {
   memberId: string;
 }
 
+type Sentiment =
+  | "Very Positive"
+  | "Positive"
+  | "Neutral"
+  | "Slightly Negative"
+  | "Very Negative";
+
 const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   memberId,
 }) => {
   const { data: memberData } = useMemberQuery(memberId);
 
-  const sentimentMapping = {
+  const sentimentMapping: Record<Sentiment, number> = {
     "Very Positive": 2,
     Positive: 1,
     Neutral: 0,
@@ -30,10 +37,12 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   };
 
   const journals = memberData?.data.journals || [];
-  const data = journals.map((journal: any) => ({
-    date: new Date(journal?.date).toISOString(), // Ensure date is in ISO format
-    sentiment: sentimentMapping[journal.sentimentResult],
-  }));
+  const data = journals.map(
+    (journal: { date: string; sentimentResult: Sentiment }) => ({
+      date: new Date(journal.date).toISOString(), // Ensure date is in ISO format
+      sentiment: sentimentMapping[journal.sentimentResult],
+    })
+  );
 
   return (
     <div>
@@ -52,9 +61,7 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
             ticks={[-2, -1, 0, 1, 2]}
             tickFormatter={(value) => {
               const sentimentText = Object.keys(sentimentMapping).find(
-                (key) =>
-                  sentimentMapping[key as keyof typeof sentimentMapping] ===
-                  value
+                (key) => sentimentMapping[key as Sentiment] === value
               );
               return sentimentText || value;
             }}
