@@ -3,7 +3,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import meditating_girl from "../../../../../assets/self-care/meditation/meditating_girl.jpg";
-import boy_music from "../../../../../assets/self-care/music/boy_listening_to_music.jpg";
+import boy_mountain_meditation from "../../../../../assets/self-care/meditation/A_boy_meditating_in_a_mountain_Surrounded_by_river.jpg";
+import girl_rainbow_meditation from "../../../../../assets/self-care/meditation/A_girl_meditating_in_cloud_Surrounded_by_rainbow.jpg";
+import girl_coffee_shop_meditation from "../../../../../assets/self-care/meditation/A_girl_meditating_in_a_coffee_shop_Here_eyes_are_closed.jpg";
+import girl_forrest_meditation from "../../../../../assets/self-care/meditation/A_girl_meditating_in_a_forrest_shop_Here_eyes_are_closd.jpg";
 
 const MeditationPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,23 +24,23 @@ const MeditationPage = () => {
     {
       title: "Mountain Guided Meditation",
       src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107693/beacon_uploads/meditation/vcoc6ple4jpfqctxj0uy.mp3",
-      image: boy_music,
+      image: boy_mountain_meditation,
     },
 
     {
       title: "Mindfulness meditation",
       src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107694/beacon_uploads/meditation/kbp3egnfjjlv8y0yaom5.mp3",
-      image: boy_music,
+      image: girl_rainbow_meditation,
     },
     {
       title: "Sitting Meditation",
       src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107695/beacon_uploads/meditation/txfczedaj6mkcdpjrgle.mp3",
-      image: boy_music,
+      image: girl_coffee_shop_meditation,
     },
     {
       title: "Spirit in the Woods",
       src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107696/beacon_uploads/meditation/gom4qgpnfskmyihe1p9m.mp3",
-      image: boy_music,
+      image: girl_forrest_meditation,
     },
   ]);
 
