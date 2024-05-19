@@ -27,7 +27,7 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body
-          className={`${nunito.className} bg-gradient-to-r from-violet-100 to-pink-100`}
+          className={`${nunito.className} bg-gradient-to-r from-emerald-200 to-sky-300`}
         >
           <Toaster position="top-center" />
           <Navbar />

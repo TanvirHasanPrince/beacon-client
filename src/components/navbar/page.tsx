@@ -11,10 +11,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-violet-100 to-pink-100 dark:bg-gray-800"
+      className="sticky top-0 z-50 bg-gradient-to-r from-emerald-200 to-sky-300 dark:bg-gray-800"
       x-data="{ isOpen: false }"
     >
-      <div className="container px-6 py-4 mx-auto">
+      <div className="container px-6 py-4 mx-auto bg-gradient-to-r from-emerald-200 to-sky-300">
         <div className="lg:flex lg:items-center lg:justify-between">
           <div className="flex items-center justify-between">
             <Link href="/">
@@ -61,7 +61,7 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            className={`mt-5 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-violet-100 to-pink-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center  ${
+            className={`mt-5 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-emerald-200 to-sky-300 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center  ${
               isOpen
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-full"
