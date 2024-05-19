@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
@@ -13,35 +14,31 @@ const MeditationPage = () => {
 
   const [playlist, setPlaylist] = useState([
     {
-      title: "Electrifying Start",
-      src: "http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/lose.ogg",
+      title: "Breating Exercise",
+      src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107693/beacon_uploads/meditation/wu3vbwszvysybkrlxh2h.mp3",
       image: meditating_girl,
     },
     {
-      title: "Moonlit Serenade",
-      src: "/path/to/dancing-in-the-moonlight.mp3",
+      title: "Mountain Guided Meditation",
+      src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107693/beacon_uploads/meditation/vcoc6ple4jpfqctxj0uy.mp3",
       image: boy_music,
     },
-    // {
-    //   title: "Tropical Getaway",
-    //   src: "/path/to/your/tropical-track.mp3",
-    //   image: track_image3,
-    // },
-    // {
-    //   title: "Enchanted Forest",
-    //   src: "/path/to/your/mystical-track.mp3",
-    //   image: track_image4,
-    // },
-    // {
-    //   title: "Heartfelt Ballad",
-    //   src: "/path/to/your/emotional-track.mp3",
-    //   image: track_image5,
-    // },
-    // {
-    //   title: "Upbeat Fiesta",
-    //   src: "/path/to/your/high-energy-track.mp3",
-    //   image: track_image6,
-    // },
+
+    {
+      title: "Mindfulness meditation",
+      src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107694/beacon_uploads/meditation/kbp3egnfjjlv8y0yaom5.mp3",
+      image: boy_music,
+    },
+    {
+      title: "Sitting Meditation",
+      src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107695/beacon_uploads/meditation/txfczedaj6mkcdpjrgle.mp3",
+      image: boy_music,
+    },
+    {
+      title: "Spirit in the Woods",
+      src: "https://res.cloudinary.com/djytbyqgi/video/upload/v1716107696/beacon_uploads/meditation/gom4qgpnfskmyihe1p9m.mp3",
+      image: boy_music,
+    },
   ]);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -67,7 +64,7 @@ const MeditationPage = () => {
     if (audioRef.current) {
       const newTime = (event.target.value / 100) * duration;
       setCurrentTime(newTime);
-      audioRef.current.currentTime = newTime; // Update audio position
+      audioRef.current.currentTime = newTime;
     }
   };
 
@@ -133,8 +130,8 @@ const MeditationPage = () => {
       <div className="mb-4 overflow-hidden bg-center rounded-3xl">
         <Image
           src={playlist[currentTrackIndex].image}
-          width={350}
-          height={350}
+          width={250}
+          height={250}
           alt="track image"
         />
       </div>
@@ -156,11 +153,18 @@ const MeditationPage = () => {
         onChange={handleProgressChange}
         className="w-full h-2 rounded-lg mt-4"
       />
-      <div className="flex justify-between text-sm mt-4">
-        <p>{Math.floor(currentTime)} seconds</p>
+       
+      <div className="flex justify-center items-center text-sm">
+        <p className="px-4">
+          Elapsed Time:{" "}
+          {Math.floor(currentTime / 60)
+            .toString()
+            .padStart(2, "0")}
+          :{(Math.floor(currentTime) % 60).toString().padStart(2, "0")}
+        </p>
         {duration > 0 && (
-          <p>
-            {Math.floor(duration / 60)}:
+          <p className="px-4">
+            Total Time: {Math.floor(duration / 60)}:
             {Math.floor(duration % 60)
               .toString()
               .padStart(2, "0")}
