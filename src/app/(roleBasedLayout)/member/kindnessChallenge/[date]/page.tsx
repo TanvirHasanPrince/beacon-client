@@ -14,12 +14,20 @@ interface Params {
 
 const HabitList: React.FC<{ params: Params }> = ({ params }) => {
   const { date } = params;
-
   const [habits, setHabits] = useState<Habit[]>([
     { id: 1, name: "Exercise", weight: 30, completed: false },
     { id: 2, name: "Read a Book", weight: 20, completed: false },
     { id: 3, name: "Meditate", weight: 50, completed: false },
   ]);
+  const [redDates, setRedDates] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Load red dates from localStorage
+    const storedRedDates = localStorage.getItem("redDates");
+    if (storedRedDates) {
+      setRedDates(JSON.parse(storedRedDates));
+    }
+  }, []);
 
   const handleHabitChange = (id: number) => {
     setHabits(
@@ -39,9 +47,18 @@ const HabitList: React.FC<{ params: Params }> = ({ params }) => {
 
   useEffect(() => {
     const completion = calculateCompletion();
-    if (completion >= 75) {
-      // Update the calendar state to mark the date as green
-      // This can be done via a global state or localStorage
+    if (completion >= 50) {
+      if (!redDates.includes(date)) {
+        const updatedRedDates = [...redDates, date];
+        setRedDates(updatedRedDates);
+        localStorage.setItem("redDates", JSON.stringify(updatedRedDates));
+      }
+    } else {
+      if (redDates.includes(date)) {
+        const updatedRedDates = redDates.filter((d) => d !== date);
+        setRedDates(updatedRedDates);
+        localStorage.setItem("redDates", JSON.stringify(updatedRedDates));
+      }
     }
   }, [habits]);
 

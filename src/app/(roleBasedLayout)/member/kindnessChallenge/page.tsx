@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const Calendar = () => {
@@ -7,23 +7,20 @@ const Calendar = () => {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [redDates, setRedDates] = useState<string[]>([]);
 
-  const handleDateClick = (date: any) => {
-    // Get the current year and month dynamically
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth(); // 0-based, so January is 0, May is 4
+  useEffect(() => {
+    // Load red dates from localStorage
+    const storedRedDates = localStorage.getItem("redDates");
+    if (storedRedDates) {
+      setRedDates(JSON.parse(storedRedDates));
+    }
+  }, []);
 
-    // Create a new date object using the provided date, set time to noon to avoid timezone issues
+  const handleDateClick = (date: number) => {
     const selectedDate = new Date(currentYear, currentMonth, date, 12, 0, 0);
-
-    // Format the date as YYYY-MM-DD
     const formattedDate = selectedDate.toISOString().split("T")[0];
 
-    // Log the selected date for debugging purposes
-    // console.log(selectedDate);
-
-    // Navigate to the new route with the formatted date
     router.push(`/member/kindnessChallenge/${formattedDate}`);
   };
 
@@ -40,7 +37,7 @@ const Calendar = () => {
 
   const handleNextMonth = () => {
     setCurrentMonth((prevMonth) => {
-      if (prevMonth === 0) {
+      if (prevMonth === 11) {
         setCurrentYear((prevYear) => prevYear + 1);
         return 0; // January
       } else {
@@ -55,7 +52,10 @@ const Calendar = () => {
   const blanks = Array.from({ length: startDay }, (_, i) => "");
   const daysWithBlanks = [...blanks, ...days];
 
-  const today = new Date().getDate(); // get the current day of the month
+  const today = new Date().getDate();
+  const currentFormattedDate = `${currentYear}-${String(
+    currentMonth + 1
+  ).padStart(2, "0")}`;
 
   return (
     <div className="mt-12 flex items-center justify-center p-6">
@@ -99,6 +99,13 @@ const Calendar = () => {
                   currentMonth === new Date().getMonth() &&
                   currentYear === new Date().getFullYear()
                     ? "bg-teal-500 text-white"
+                    : ""
+                } ${
+                  day !== "" &&
+                  redDates.includes(
+                    `${currentFormattedDate}-${String(day).padStart(2, "0")}`
+                  )
+                    ? "bg-red-500 text-white"
                     : ""
                 }`}
                 onClick={() => day !== "" && handleDateClick(day)}
