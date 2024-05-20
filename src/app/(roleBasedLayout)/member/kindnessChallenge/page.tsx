@@ -58,42 +58,45 @@ const Calendar = () => {
   ).padStart(2, "0")}`;
 
   return (
-    <div className="mt-12 flex items-center justify-center p-6">
-      <div className="max-w-md mx-auto rounded-lg shadow-2xl overflow-hidden">
-        <div className="px-2 py-3">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold">
+    <div className="flex items-center justify-center p-6">
+      <div className="w-full max-w-md rounded-3xl shadow-xl overflow-hidden ">
+        <div className="px-6 py-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">
               {new Date(currentYear, currentMonth).toLocaleString("default", {
                 month: "long",
                 year: "numeric",
               })}
             </h2>
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <button
-                className="px-2 py-1 rounded-md bg-red-200 hover:bg-gray-300"
+                className="px-3 py-1 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300"
                 onClick={handlePrevMonth}
               >
                 Prev
               </button>
               <button
-                className="ml-2 px-2 py-1 rounded-md bg-red-200 hover:bg-gray-300"
+                className="px-3 py-1 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300"
                 onClick={handleNextMonth}
               >
                 Next
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-7 gap-4 mt-4">
+          <div className="grid grid-cols-7 gap-2">
             {daysOfWeek.map((day) => (
-              <div key={day} className="text-center font-bold text-gray-700">
+              <div
+                key={day}
+                className="text-center font-semibold text-gray-600"
+              >
                 {day}
               </div>
             ))}
             {daysWithBlanks.map((day, index) => (
               <div
                 key={index}
-                className={`text-center p-2 border rounded-md cursor-pointer ${
-                  day === "" ? "opacity-50" : ""
+                className={`flex items-center justify-center text-center h-10 w-10 rounded-full cursor-pointer transition-all ${
+                  day === "" ? "opacity-50 cursor-default" : "hover:bg-gray-200"
                 } ${
                   day === today &&
                   currentMonth === new Date().getMonth() &&
