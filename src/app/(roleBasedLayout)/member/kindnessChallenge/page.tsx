@@ -49,7 +49,7 @@ const Calendar = () => {
   const startDay = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-  const blanks = Array.from({ length: startDay }, (_, i) => "");
+  const blanks = Array.from({ length: startDay }, () => "");
   const daysWithBlanks = [...blanks, ...days];
 
   const today = new Date().getDate();
@@ -108,7 +108,7 @@ const Calendar = () => {
                     ? "bg-red-500 text-white"
                     : ""
                 }`}
-                onClick={() => day !== "" && handleDateClick(day)}
+                onClick={() => day !== "" && handleDateClick(Number(day))}
               >
                 {day !== "" ? day : ""}
               </div>
