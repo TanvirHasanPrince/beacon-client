@@ -58,8 +58,8 @@ const Calendar = () => {
   ).padStart(2, "0")}`;
 
   return (
-    <div className="flex items-center justify-center p-6">
-      <div className="w-full max-w-md rounded-3xl shadow-xl overflow-hidden ">
+    <div className="flex items-center mt-12 justify-center p-6">
+      <div className="w-full max-w-md rounded-3xl shadow-xl overflow-hidden border-2 border-green-300">
         <div className="px-6 py-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-800">
@@ -70,20 +70,20 @@ const Calendar = () => {
             </h2>
             <div className="flex items-center space-x-2">
               <button
-                className="px-3 py-1 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300"
+                className="px-3 py-1 rounded-md bg-red-100 text-gray-600 hover:bg-gray-300 border-2 border-green-300"
                 onClick={handlePrevMonth}
               >
                 Prev
               </button>
               <button
-                className="px-3 py-1 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300"
+                className="px-3 py-1 rounded-md bg-red-100 text-gray-600 hover:bg-gray-300 border-2 border-green-300"
                 onClick={handleNextMonth}
               >
                 Next
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-2 ">
             {daysOfWeek.map((day) => (
               <div
                 key={day}
@@ -95,7 +95,7 @@ const Calendar = () => {
             {daysWithBlanks.map((day, index) => (
               <div
                 key={index}
-                className={`flex items-center justify-center text-center h-10 w-10 rounded-full cursor-pointer transition-all ${
+                className={`flex items-center justify-center text-center h-10 w-10 rounded-full border-green-200 border-2 cursor-pointer transition-all ${
                   day === "" ? "opacity-50 cursor-default" : "hover:bg-gray-200"
                 } ${
                   day === today &&
