@@ -101,14 +101,14 @@ const Calendar = () => {
                   day === today &&
                   currentMonth === new Date().getMonth() &&
                   currentYear === new Date().getFullYear()
-                    ? "bg-teal-500 text-white"
+                    ? "bg-red-500 text-white"
                     : ""
                 } ${
                   day !== "" &&
                   redDates.includes(
                     `${currentFormattedDate}-${String(day).padStart(2, "0")}`
                   )
-                    ? "bg-red-500 text-white"
+                    ? "bg-teal-500 text-white"
                     : ""
                 }`}
                 onClick={() => day !== "" && handleDateClick(Number(day))}
