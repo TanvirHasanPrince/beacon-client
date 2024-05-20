@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import Lottie from "lottie-react";
-import connect from "../../assets/HomePage/connect.json";
+import connect from "../../assets/HomePage/A_group_of_diverse_friends_standing_on_a_cliff.jpg";
 import Link from "next/link";
-
+import Image from "next/image";
 
 const HomePage = () => {
   const loginButtonStyle = {
@@ -28,7 +28,8 @@ const HomePage = () => {
             Join us on a journey of healing and companionship.
           </span>
         </p>
-        <Lottie animationData={connect} loop={true} />
+        <Image src={connect} width={500} height={500} alt="homepage" />
+
         <p className="mb-8">
           <span className="text-blue-600 font-bold">
             Join us on a journey of healing and companionship.
