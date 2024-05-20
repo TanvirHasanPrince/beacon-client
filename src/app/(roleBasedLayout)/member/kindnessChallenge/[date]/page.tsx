@@ -122,10 +122,10 @@ const HabitList: React.FC<{ params: Params }> = ({ params }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 rounded-lg">
+    <div className="max-w-md mx-auto p-6 rounded-lg">
       <Toaster /> {/* Add the Toaster component */}
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">
-        Habits for {date}
+      <h1 className="text-center text-2xl font-bold mb-4 text-gray-800">
+        Kindness Challenges
       </h1>
       <ul className="space-y-4">
         {habits.map((habit) => (
