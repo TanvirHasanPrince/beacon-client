@@ -9,8 +9,8 @@ import {
   FaPenFancy,
   FaHeart,
   FaRandom,
-} from "react-icons/fa"; // Importing the appropriate icons
-import toast, { Toaster } from "react-hot-toast"; // Importing toast and Toaster from react-hot-toast
+} from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Habit {
   id: number;
@@ -37,7 +37,6 @@ const HabitList: React.FC<{ params: Params }> = ({ params }) => {
   const [redDates, setRedDates] = useState<string[]>([]);
 
   useEffect(() => {
-    // Load red dates from localStorage
     const storedRedDates = localStorage.getItem("redDates");
     if (storedRedDates) {
       setRedDates(JSON.parse(storedRedDates));
@@ -52,7 +51,7 @@ const HabitList: React.FC<{ params: Params }> = ({ params }) => {
 
     const allCompleted = updatedHabits.every((habit) => habit.completed);
     if (allCompleted) {
-      toast.success("All habits completed!");
+      toast.success("All challenges completed!");
       setTimeout(() => {
         router.push("/member/kindnessChallenge");
       }, 2000); // Redirect after 2 seconds
