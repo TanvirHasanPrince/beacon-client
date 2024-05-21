@@ -1,6 +1,11 @@
 "use client";
+import {
+  tailwindButtonClass,
+  tailwindPageTitleClass,
+} from "@/components/tailwindClasses";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
@@ -11,70 +16,79 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 
+// Define the EventPage component
 const EventPage = () => {
+  // Fetch user ID from user info
   const { userId } = getUserInfo() as any;
+
+  // Fetch member data using user ID
   const { data: memberData, isLoading, isError } = useMemberQuery(userId);
 
+  // Loading state
   if (isLoading) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return <div>Loading...</div>;
   }
 
+  // Error state
   if (isError || !memberData) {
-    return <div>Error occurred while fetching data.</div>; // Render error state if data fetching fails
+    return <div>Error occurred while fetching data.</div>;
   }
 
+  // Extract events data from member data
   const { events } = memberData.data;
 
+  // Render the component
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link href={"/member/events/addEvent"}>
-        <button className="bg-red-500 py-2 px-8 text-white mb-4">
-          Add Event
-        </button>
-      </Link>
-      <h1 className="text-2xl font-bold mb-8 text-gray-800">Your Events</h1>
-      <div className="p-8">
+      {/* Heading */}
+      <h1 className={`${tailwindPageTitleClass}`}>Your Events</h1>
+      {/* Display events */}
+      <div className="mt-4">
         {events.map((event: any) => (
-          <div
-            key={event.id}
-            className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full max-w-3xl"
-          >
-            <h3 className="text-lg font-semibold mb-2 text-gray-800">
-              {event.title}
-            </h3>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {new Date(event.date_time).toLocaleString()}
-            </p>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaMapMarkerAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {event.location}
-            </p>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {event.organizer}
-            </p>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaTags className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {event.categories}
-            </p>
-            <a
-              href={event.rsvp_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm mb-2 text-blue-500 hover:text-blue-700 underline"
-            >
-              RSVP Here
-            </a>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaInfoCircle className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {event.additional_info}
-            </p>
-          </div>
+          <>
+            <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg shadow-xl p-6 mb-8 w-full max-w-3xl">
+              <p className="text-xl mb-2 text-gray-600 font-semi-bold">
+                {event.title}
+              </p>
+              <div key={event.id} className="flex items-center justify-center ">
+                <Image
+                  src={event.photo}
+                  alt={event.title}
+                  className="w-28 h-auto mr-8"
+                  width={250}
+                  height={250}
+                />
+                <div className="flex flex-col justify-start">
+                  <p className="text-sm mb-2 text-red-600 font-bold">
+                    {new Date(event.date_time).toLocaleDateString("en-US", {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "short",
+                    })}
+                    {", "}
+                    {new Date(event.date_time).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                  <p className="text-sm mb-2 text-gray-600">
+                    <FaMapMarkerAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+                    {event.location}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
         ))}
       </div>
+
+      {/* Link to add event */}
+      <Link href={"/member/events/addEvent"}>
+        <button className={`${tailwindButtonClass}`}>Create Event</button>
+      </Link>
     </div>
   );
 };
 
+// Export the component
 export default EventPage;
