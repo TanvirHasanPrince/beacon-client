@@ -365,3 +365,49 @@ export enum ENUM_DAYS_OF_WEEK {
   FRIDAY = "Friday",
   SATURDAY = "Saturday",
 }
+
+export enum ENUM_CITIES_OF_UK {
+  London = "London",
+  Birmingham = "Birmingham",
+  Manchester = "Manchester",
+  Glasgow = "Glasgow",
+  Edinburgh = "Edinburgh",
+  Liverpool = "Liverpool",
+  Bristol = "Bristol",
+  Sheffield = "Sheffield",
+  Leeds = "Leeds",
+  Leicester = "Leicester",
+  Newcastle_upon_Tyne = "Newcastle upon Tyne",
+  Coventry = "Coventry",
+  Cardiff = "Cardiff",
+  Belfast = "Belfast",
+  Nottingham = "Nottingham",
+  Plymouth = "Plymouth",
+  Southampton = "Southampton",
+  Aberdeen = "Aberdeen",
+  Dundee = "Dundee",
+  Bradford = "Bradford",
+  Hull = "Hull",
+  Portsmouth = "Portsmouth",
+  Stoke_on_Trent = "Stoke-on-Trent",
+  Wolverhampton = "Wolverhampton",
+  Swansea = "Swansea",
+  Oxford = "Oxford",
+  Cambridge = "Cambridge",
+  Norwich = "Norwich",
+  Milton_Keynes = "Milton Keynes",
+
+  // Additional cities
+  Luton = "Luton",
+  Sunderland = "Sunderland",
+  Newport = "Newport",
+  Reading = "Reading",
+  Peterborough = "Peterborough",
+  Brighton = "Brighton",
+  Bournemouth = "Bournemouth",
+  Sheffield_City_Region = "Sheffield City Region", // Can be included based on interpretation
+  West_Yorkshire = "West Yorkshire", // Can be included based on interpretation
+  Tyneside = "Tyneside", // Can be included based on interpretation
+  Greater_Manchester = "Greater Manchester", // Can be included based on interpretation
+  West_Midlands = "West Midlands", // Can be included based on interpretation
+}
