@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { getBaseUrl } from "@/helpers/envConfig";
 
 interface Params {
   id: string;
@@ -9,7 +8,6 @@ interface Params {
 
 const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
   const { id: roomId } = params;
-
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -24,7 +22,6 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
         "Beacon"
       );
       const meetingLink = `${process.env.NEXT_PUBLIC_BROWSER_URL}/meetingRoom/${roomId}`;
-
       const zc = ZegoUIKitPrebuilt.create(kitToken);
       zc.joinRoom({
         container: containerRef.current,
@@ -39,9 +36,11 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
   }, [roomId]);
 
   return (
-    <div className="">
-      <div ref={containerRef} className="" />
-    </div>
+    <div
+      ref={containerRef}
+      className="w-screen h-screen"
+      style={{ width: "100vw", height: "100vh" }}
+    />
   );
 };
 

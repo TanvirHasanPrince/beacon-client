@@ -15,18 +15,26 @@ const MyConsultationsPage = () => {
   } = useMemberQuery(userId);
 
   if (isLoadingMember) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    ); // Render loading state while fetching data
   }
 
   if (isErrorMember || !memberData) {
-    return <div>Error occurred while fetching data.</div>; // Render error state if data fetching fails
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Error occurred while fetching data.
+      </div>
+    ); // Render error state if data fetching fails
   }
 
   const { consultations } = memberData.data;
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link href={"/member/consultations/createConsultation"}>
+      <Link href="/member/consultations/createConsultation">
         <button className="bg-red-500 py-2 px-8 text-white mb-4">
           Consult a doctor
         </button>
@@ -34,7 +42,7 @@ const MyConsultationsPage = () => {
       <h1 className="text-2xl font-bold mb-8 text-gray-800">
         Your Consultations
       </h1>
-      <div className="p-8">
+      <div className="p-8 w-full max-w-3xl">
         {consultations.map((consultation: any) => (
           <ConsultationCard key={consultation.id} consultation={consultation} />
         ))}
@@ -51,11 +59,13 @@ const ConsultationCard = ({ consultation }: { consultation: any }) => {
   } = useDoctorQuery(consultation.doctorId);
 
   if (isLoadingDoctor) {
-    return <div>Loading doctor info...</div>; // Render loading state while fetching doctor data
+    return <div className="mb-8">Loading doctor info...</div>; // Render loading state while fetching doctor data
   }
 
   if (isErrorDoctor || !doctorData) {
-    return <div>Error occurred while fetching doctor info.</div>; // Render error state if doctor data fetching fails
+    return (
+      <div className="mb-8">Error occurred while fetching doctor info.</div>
+    ); // Render error state if doctor data fetching fails
   }
 
   const { firstName, middleName, lastName } = doctorData.data;
@@ -64,7 +74,7 @@ const ConsultationCard = ({ consultation }: { consultation: any }) => {
     .join(" ");
 
   return (
-    <div className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full max-w-3xl">
+    <div className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full">
       <p className="text-sm mb-2 text-gray-600">
         <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
         {`Start: ${new Date(consultation.startTime).toLocaleString()}`}
@@ -77,15 +87,14 @@ const ConsultationCard = ({ consultation }: { consultation: any }) => {
         <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
         {`Doctor: ${doctorName}`}
       </p>
-      <a
+      <Link
         href={consultation.meetingLink}
-        target="_blank"
         rel="noopener noreferrer"
         className="text-sm mb-2 text-blue-500 hover:text-blue-700 underline"
       >
         <FaLink className="inline-block h-4 w-4 mr-1 text-gray-400" />
         Join Meeting
-      </a>
+      </Link>
     </div>
   );
 };
