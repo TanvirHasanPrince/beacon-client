@@ -19,11 +19,11 @@ export const eventApi = baseApi.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response) => {
-        return {
-          events: response,
-        };
-      },
+      // transformResponse: (response) => {
+      //   return {
+      //     events: response,
+      //   };
+      // },
       providesTags: [tagTypes.event],
     }),
     event: build.query({
