@@ -1,3 +1,4 @@
+// SubscribersList.tsx
 "use client";
 import React from "react";
 import { useMemberQuery } from "@/redux/api/memberApi";
@@ -11,38 +12,48 @@ const Subscriber = ({ id }: { id: string }) => {
   } = useMemberQuery(id);
   const member = memberResponse?.data;
 
-  if (isMemberLoading) return <div>Loading subscriber...</div>;
-  if (error) return <div>Error loading subscriber.</div>;
+  if (isMemberLoading)
+    return (
+      <div className="flex justify-center items-center h-24">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
 
-  return (
-    member && (
-      <div style={{ margin: "10px", textAlign: "center" }}>
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-24">
+        <p className="text-red-500 font-semibold">Error loading subscriber.</p>
+      </div>
+    );
+
+  return member ? (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden mx-2 mb-4">
+      <div className="relative h-24 w-24 mx-auto">
         <Image
           src={member.profilePhoto}
           alt={member.firstName}
-          style={{
-            width: "100px",
-            height: "100px",
-            objectFit: "cover",
-          }}
-          width={500}
-          height={500}
+          fill
+          className="object-cover rounded-full"
         />
-        <p>
+      </div>
+      <div className="p-2 text-center">
+        <p className="font-semibold">
           {member.firstName} {member.lastName}
         </p>
       </div>
-    )
-  );
+    </div>
+  ) : null;
 };
 
 const SubscribersList = ({ subscriberIds }: { subscriberIds: any }) => {
   if (!subscriberIds || subscriberIds.length === 0) {
-    return <div>No subscribers found.</div>;
+    return (
+      <div className="text-gray-500 font-semibold">No subscribers found.</div>
+    );
   }
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className="grid grid-cols-2 gap-4 justify-center">
       {subscriberIds.map((id: string) => (
         <Subscriber key={id} id={id} />
       ))}

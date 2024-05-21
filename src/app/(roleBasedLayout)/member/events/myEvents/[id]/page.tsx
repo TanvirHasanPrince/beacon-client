@@ -22,38 +22,61 @@ const MyEventDetailsPage = ({ params }: { params: Iparams }) => {
   if (eventError) return <div>Error loading event details.</div>;
 
   return (
-    <div>
-      <h1>{event.title}</h1>
-      <Image
-        src={event.photo}
-        alt={event.title}
-        width={500}
-        height={500}
-        style={{ width: "100%", height: "auto" }}
-      />
-      <p>{event.description}</p>
-      <p>
-        <strong>City:</strong> {event.city}
-      </p>
-      <p>
-        <strong>Date and Time:</strong>{" "}
-        {new Date(event.date_time).toLocaleString()}
-      </p>
-      <p>
-        <strong>Location:</strong> {event.location}
-      </p>
-      <p>
-        <strong>Organizer:</strong> {event.organizer}
-      </p>
-      <p>
-        <strong>Categories:</strong> {event.categories}
-      </p>
-      <p>
-        <strong>Additional Info:</strong> {event.additional_info}
-      </p>
-
-      <h2>Subscribers</h2>
-      <SubscribersList subscriberIds={event.subscribers_id} />
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto   overflow-hidden">
+        <div className="relative h-96">
+          <Image
+            src={event.photo}
+            alt={event.title}
+            fill
+            className="object-cover rounded-xl"
+          />
+        </div>
+        <div className="p-6">
+          <h1 className="text-4xl font-bold mb-4">{event.title}</h1>
+          <p className="text-gray-700 mb-4">{event.description}</p>
+          <div className="flex flex-wrap mb-4">
+            <div className="w-1/2 pr-4 mb-4">
+              <p className="font-semibold">City:</p>
+              <p>{event.city}</p>
+            </div>
+            <div className="w-1/2 pl-4 mb-4">
+              <p className="font-semibold">Date and Time:</p>
+              <p>
+                {" "}
+                {new Date(event.date_time).toLocaleDateString("en-US", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                })}
+                {""} <br />
+                {new Date(event.date_time).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
+            <div className="w-1/2 pr-4">
+              <p className="font-semibold">Location:</p>
+              <p>{event.location}</p>
+            </div>
+            <div className="w-1/2 pl-4">
+              <p className="font-semibold">Organizer:</p>
+              <p>{event.organizer}</p>
+            </div>
+          </div>
+          <div className="mb-4">
+            <p className="font-semibold">Categories:</p>
+            <p>{event.categories}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Additional Info:</p>
+            <p>{event.additional_info}</p>
+          </div>
+          <h2 className="text-2xl font-bold mt-8 mb-4">Subscribers</h2>
+          <SubscribersList subscriberIds={event.subscribers_id} />
+        </div>
+      </div>
     </div>
   );
 };
