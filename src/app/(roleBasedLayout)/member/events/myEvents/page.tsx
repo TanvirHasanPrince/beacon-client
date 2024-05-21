@@ -43,7 +43,7 @@ const EventPage = () => {
       {/* Heading */}
       <h1 className={`${tailwindPageTitleClass}`}>Your Events</h1>
       {/* Display events */}
-      <div className="mt-4">
+      <div className="mt-4 px-8">
         {events.map((event: any) => (
           <>
             <Link href={`/member/events/myEvents/${event.id}`}>
