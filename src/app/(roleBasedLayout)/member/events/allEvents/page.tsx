@@ -41,7 +41,7 @@ const EventCard = ({ event }: { event: any }) => {
         </p>
         <p className="text-gray-600">{event.location}</p>
       </div>
-      <Link href={`/events/${event.id}`}>
+      <Link href={`/member/events/allEvents/${event.id}`}>
         <button className={tailwindButtonClass}>View Details</button>
       </Link>
     </div>
