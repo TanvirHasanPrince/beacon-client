@@ -13,6 +13,14 @@ export const eventApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.member],
     }),
+    subscribeEvent: build.mutation({
+      query: (data) => ({
+        url: `${EVENT_URL}/${data.id}/subscribe`,
+        method: "POST",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.member, tagTypes.event],
+    }),
     events: build.query({
       query: (arg: Record<string, any>) => ({
         url: `${EVENT_URL}`,
@@ -57,4 +65,5 @@ export const {
   useEventQuery,
   useUpdateEventMutation,
   useDeleteEventMutation,
+  useSubscribeEventMutation,
 } = eventApi;
