@@ -27,13 +27,13 @@ const Subscriber = ({ id }: { id: string }) => {
     );
 
   return member ? (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden mx-2 mb-4">
+    <div className=" rounded-lg shadow-lg overflow-hidden mx-2 mb-4 flex flex-col items-center justify-center">
       <div className="relative h-24 w-24 mx-auto">
         <Image
           src={member.profilePhoto}
           alt={member.firstName}
           fill
-          className="object-cover rounded-full"
+          className="object-cover rounded-2xl mt-2"
         />
       </div>
       <div className="p-2 text-center">
