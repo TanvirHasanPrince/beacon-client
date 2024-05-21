@@ -3,17 +3,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useEventsQuery } from "@/redux/api/eventApi";
 import Image from "next/image";
-import { tailwindButtonClass } from "@/components/tailwindClasses";
-
-interface Event {
-  id: string;
-  title: string;
-  date_time: string;
-  location: string;
-  photo: string;
-  categories: string;
-  city: string;
-}
+import {
+  tailwindButtonClass,
+  tailwindPageTitleClass,
+} from "@/components/tailwindClasses";
 
 const EventCard = ({ event }: { event: any }) => {
   return (
@@ -86,7 +79,9 @@ const AllEventsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold mb-4 text-center">All Events</h1>
+      <h1 className={`${tailwindPageTitleClass} my-2 text-center`}>
+        All Events
+      </h1>
       <div className="flex flex-wrap justify-center mb-8 gap-4">
         <div className="flex flex-col">
           <label htmlFor="category" className="mb-2 font-medium text-gray-700">
