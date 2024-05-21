@@ -46,38 +46,43 @@ const EventPage = () => {
       <div className="mt-4">
         {events.map((event: any) => (
           <>
-            <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg shadow-xl p-6 mb-8 w-full max-w-3xl">
-              <p className="text-xl mb-2 text-gray-600 font-semi-bold">
-                {event.title}
-              </p>
-              <div key={event.id} className="flex items-center justify-center ">
-                <Image
-                  src={event.photo}
-                  alt={event.title}
-                  className="w-28 h-auto mr-8"
-                  width={250}
-                  height={250}
-                />
-                <div className="flex flex-col justify-start">
-                  <p className="text-sm mb-2 text-red-600 font-bold">
-                    {new Date(event.date_time).toLocaleDateString("en-US", {
-                      weekday: "short",
-                      day: "numeric",
-                      month: "short",
-                    })}
-                    {", "}
-                    {new Date(event.date_time).toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                  <p className="text-sm mb-2 text-gray-600">
-                    <FaMapMarkerAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-                    {event.location}
-                  </p>
+            <Link href={`/member/events/myEvents/${event.id}`}>
+              <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg shadow-xl p-6 mb-8 w-full max-w-3xl">
+                <p className="text-xl mb-2 text-gray-600 font-semi-bold">
+                  {event.title}
+                </p>
+                <div
+                  key={event.id}
+                  className="flex items-center justify-center "
+                >
+                  <Image
+                    src={event.photo}
+                    alt={event.title}
+                    className="w-28 h-auto mr-8"
+                    width={250}
+                    height={250}
+                  />
+                  <div className="flex flex-col justify-start">
+                    <p className="text-sm mb-2 text-red-600 font-bold">
+                      {new Date(event.date_time).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",
+                      })}
+                      {", "}
+                      {new Date(event.date_time).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                    <p className="text-sm mb-2 text-gray-600">
+                      <FaMapMarkerAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+                      {event.location}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           </>
         ))}
       </div>
