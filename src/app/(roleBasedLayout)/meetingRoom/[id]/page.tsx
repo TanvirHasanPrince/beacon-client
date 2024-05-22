@@ -38,7 +38,7 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-screen"
+      className="w-screen h-screen "
       style={{ width: "100vw", height: "100vh" }}
     />
   );

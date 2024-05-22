@@ -108,6 +108,12 @@ const Navbar = () => {
                   >
                     My consultations
                   </Link>
+                  <button
+                    onClick={logOut}
+                    className={`mt-8 px-3 py-2 mx-3 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700`}
+                  >
+                    Logout
+                  </button>
                 </>
               )}
               {role === "member" && (
