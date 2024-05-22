@@ -20,8 +20,6 @@ const MyProfilePage = () => {
 
   const { data: memberData, isLoading, isError } = useMemberQuery(userId);
 
-  console.log(memberData?.data);
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -52,7 +50,6 @@ const MyProfilePage = () => {
   } = memberData.data;
 
   const { pets } = memberData?.data;
-  console.log(pets);
 
   return (
     <div className="min-h-screen">
@@ -156,7 +153,7 @@ const MyProfilePage = () => {
           </div>
 
           {/* Pets End! */}
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center">
             <Link href={"/member/pets/addPet"}>
               <button className={`${tailwindButtonClass}`}>Add Pet</button>
             </Link>
