@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { tailwindButtonClass } from "@/components/tailwindClasses";
 
 const MyProfilePage = () => {
   const { userId } = getUserInfo() as any;
@@ -102,6 +104,11 @@ const MyProfilePage = () => {
               <FaPhoneAlt className="text-pink-500 mr-2" />
               <span>{mobile}</span>
             </div>
+          </div>
+          <div className="flex justify-center mb-4">
+            <Link href={"/member/pets/addPet"}>
+              <button className={`${tailwindButtonClass}`}>Add Pet</button>
+            </Link>
           </div>
         </div>
       </div>
