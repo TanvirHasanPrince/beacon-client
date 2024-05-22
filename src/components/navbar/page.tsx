@@ -1,13 +1,20 @@
 "use client";
-import { getUserInfo } from "@/services/auth.service";
+import { authKey } from "@/constants/storageKey";
+import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { tailwindLogoutButtonClass } from "../tailwindClasses";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { role, id } = getUserInfo() as any;
+  const router = useRouter();
 
-  console.log(role);
+  const logOut = () => {
+    removeUserInfo(authKey);
+    router.push("/login");
+  };
 
   return (
     <nav
@@ -158,10 +165,17 @@ const Navbar = () => {
                   </Link>
                   <Link
                     href="/member/kindnessChallenge"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-pink-100 dark:hover:bg-gray-700"
                   >
                     Kindness Challenge
                   </Link>
+
+                  <button
+                    onClick={logOut}
+                    className={`mt-8 px-3 py-2 mx-3 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700`}
+                  >
+                    Logout
+                  </button>
                 </>
               )}
             </div>
