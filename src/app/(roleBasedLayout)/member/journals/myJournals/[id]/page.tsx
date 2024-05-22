@@ -1,4 +1,5 @@
 "use client";
+import SpinAnimation from "@/components/ui/SpinAnimation";
 import { useJournalEntryQuery } from "@/redux/api/journalApi";
 import Image from "next/image";
 
@@ -15,11 +16,7 @@ const MyJournalDetailsPage = ({ params }: { params: IParams }) => {
   } = useJournalEntryQuery(journalId);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
-      </div>
-    );
+    return <SpinAnimation></SpinAnimation>;
   }
 
   if (isError || !journalData) {
@@ -37,12 +34,18 @@ const MyJournalDetailsPage = ({ params }: { params: IParams }) => {
   return (
     <div className="max-w-3xl mx-auto p-8 ">
       <h1 className="text-3xl font-bold mb-4 text-gray-800">{title}</h1>
-      <p className="text-gray-600 mb-4">
-        {new Date(date).toLocaleDateString()}
-      </p>
+      <div className="flex text-pink-700 flex-row gap-1">
+        <p className=" mb-4 font-bold">
+          {new Date(date).toLocaleString("default", {
+            month: "short",
+          })}
+        </p>
+        <p className=" mb-4 font-bold">{new Date(date).getDate()},</p>
+        <p className="mb-4 font-bold">{new Date(date).getFullYear()}</p>
+      </div>
       <Image src={journalPhoto} width={500} height={500} alt="none"></Image>
 
-      <p className="text-gray-700 mb-6">{content}</p>
+      <p className="text-gray-700 my-6">{content}</p>
 
       <div className="flex items-center mb-4">
         <span className="text-gray-800 font-semibold mr-2">Mood:</span>
