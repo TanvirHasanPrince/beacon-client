@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
-import { FaCalendarAlt, FaTags, FaInfoCircle } from "react-icons/fa";
 import { getUserInfo } from "@/services/auth.service";
 import { useMemberQuery } from "@/redux/api/memberApi";
-import Link from "next/link";
+import { tailwindPageTitleClass } from "@/components/tailwindClasses";
+import testImage from "../../../../../assets/HomePage/A_group_of_diverse_friends_standing_on_a_cliff.jpg";
+import Image from "next/image";
 
 const MyJournalsPage = () => {
   const { userId } = getUserInfo() as any;
@@ -20,36 +21,36 @@ const MyJournalsPage = () => {
   const { journals } = memberData.data;
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <Link href={"/member/journals/addJournal"}>
-        <button className="bg-red-500 py-2 px-8 text-white mb-4">
-          Add Journal
-        </button>
-      </Link>
-      <h1 className="text-2xl font-bold mb-8 text-gray-800">My Journals</h1>
-      <div className="p-8">
+    <div>
+      <div className="relative max-w-4xl mx-auto p-8 bg-opacity-80 ">
+        <h1 className={`${tailwindPageTitleClass} text-center mb-4`}>
+          My Journals
+        </h1>
         {journals.map((journal: any) => (
           <div
             key={journal.id}
-            className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full max-w-3xl"
+            className="flex flex-col items-start justify-center border border-gray-300 rounded-lg p-4 mb-4 w-full max-w-3xl bg-[#e0f7fa] shadow-md transform hover:scale-105 hover:translate-y-2 transition-all duration-1000"
           >
-            <h3 className="text-lg font-semibold mb-2 text-gray-800">
+            <div className="flex items-center mb-2 ">
+              <div className="text-2xl font-bold  mr-1 text-pink-600">
+                {new Date(journal.date).getDate()}
+              </div>
+              <div className="text-lg text-pink-600 mr-1">
+                {new Date(journal.date).toLocaleString("default", {
+                  month: "short",
+                })}
+              </div>
+              <div className="text-lg text-pink-600">
+                {new Date(journal.date).getFullYear()}
+              </div>
+            </div>
+            <h3 className="text-md font-semibold mb-1 text-gray-800">
               {journal.title}
             </h3>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {new Date(journal.date).toLocaleDateString()}
+            <p className="text-sm text-gray-600">
+              {journal.content.slice(0, 100)}
+              {journal.content.length > 100 ? "..." : ""}
             </p>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaTags className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {journal.tags.join(", ")}
-            </p>
-            <p className="text-sm mb-2 text-gray-600">
-              <FaInfoCircle className="inline-block h-4 w-4 mr-1 text-gray-400" />
-              {journal.content}
-            </p>
-            <p className="text-sm mb-2 text-gray-600">Mood: {journal.mood}</p>
-            {/* Additional fields can be displayed similarly */}
           </div>
         ))}
       </div>
