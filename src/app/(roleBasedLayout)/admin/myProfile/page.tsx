@@ -1,14 +1,7 @@
 "use client";
 import { useAdminQuery } from "@/redux/api/adminApi";
 import { getUserInfo } from "@/services/auth.service";
-import {
-  FaEnvelope,
-  FaPhoneAlt,
-  FaUser,
-  FaGlobe,
-  FaInfoCircle,
-  FaClock,
-} from "react-icons/fa";
+import { FaEnvelope, FaPhoneAlt, FaUser, FaClock } from "react-icons/fa";
 import React from "react";
 import moment from "moment";
 
@@ -18,11 +11,19 @@ const AdminProfilePage = () => {
   const { data: adminData, isLoading, isError } = useAdminQuery(userId);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    ); // Centered loading state
   }
 
   if (isError || !adminData) {
-    return <div>Error occurred while fetching data.</div>; // Render error state if data fetching fails
+    return (
+      <div className="flex items-center justify-center h-screen text-red-500">
+        Error occurred while fetching data.
+      </div>
+    ); // Centered error state
   }
 
   // Destructure admin data
@@ -41,49 +42,49 @@ const AdminProfilePage = () => {
   const formattedUpdatedAt = moment(updatedAt).format("MMMM Do YYYY, h:mm a");
 
   return (
-    <>
-      <div className="flex flex-col items-center pb-10">
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          {firstName} {middleName && `${middleName} `} {lastName}
-        </h5>
+    <div className="min-h-screen bg-gradient-to-r from-green-200 to-blue-200 flex items-center justify-center py-10">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-11/12 sm:w-96">
+        <div className="flex flex-col items-center pb-6">
+          <h5 className="mb-1 text-2xl font-semibold text-gray-800 bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent">
+            {firstName} {middleName && `${middleName} `} {lastName}
+          </h5>
+          <p className="text-gray-600">Admin Profile</p>
+        </div>
 
-        <div className=" flex flex-col items-center justify-center overflow-hidden w-96">
+        <div className="flex flex-col items-center w-full">
           {/* Render admin information */}
-          <div className="p-4">
-            <div className="mb-2">
-              <FaUser className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for name */}
-              {firstName} {middleName && `${middleName} `} {lastName}
+          <div className="w-full mb-4">
+            <div className="flex items-center mb-4 text-gray-700">
+              <FaUser className="inline-block mr-2 text-blue-500" />
+              <span className="text-lg">
+                {firstName} {middleName && `${middleName} `} {lastName}
+              </span>
             </div>
-            <div className="mb-2">
-              <FaEnvelope className="inline-block mr-2 text-red-500" />{" "}
-              {/* Icon for email */}
-              {email}
+            <div className="flex items-center mb-4 text-gray-700">
+              <FaEnvelope className="inline-block mr-2 text-blue-500" />
+              <span className="text-lg">{email}</span>
             </div>
-            <div className="mb-2">
-              <FaPhoneAlt className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for phone number */}
-              {mobile}
+            <div className="flex items-center mb-4 text-gray-700">
+              <FaPhoneAlt className="inline-block mr-2 text-blue-500" />
+              <span className="text-lg">{mobile}</span>
             </div>
           </div>
 
-          <div className="mb-2">
-            <span className="font-semibold">
-              <FaClock className="inline-block mr-2  text-red-500" />
-              Created on:
-            </span>{" "}
-            {formattedCreatedAt}
-          </div>
-          <div className="mb-4">
-            <span className="font-semibold">
-              <FaClock className="inline-block mr-2  text-red-500" />
-              Last updated
-            </span>{" "}
-            {formattedUpdatedAt}
+          <div className="w-full">
+            <div className="flex items-center mb-2 text-gray-700">
+              <FaClock className="inline-block mr-2 text-blue-500" />
+              <span className="font-semibold">Created on:</span>
+              <span className="ml-1">{formattedCreatedAt}</span>
+            </div>
+            <div className="flex items-center text-gray-700">
+              <FaClock className="inline-block mr-2 text-blue-500" />
+              <span className="font-semibold">Last updated:</span>
+              <span className="ml-1">{formattedUpdatedAt}</span>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -8,9 +8,11 @@ import {
   FaGlobe,
   FaInfoCircle,
   FaClock,
+  FaCalendar,
 } from "react-icons/fa";
 import React from "react";
 import moment from "moment";
+import Image from "next/image";
 
 const MyProfilePage = () => {
   const { role, userId } = getUserInfo() as any;
@@ -18,14 +20,21 @@ const MyProfilePage = () => {
   const { data: memberData, isLoading, isError } = useMemberQuery(userId);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Render loading state while fetching data
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (isError || !memberData) {
-    return <div>Error occurred while fetching data.</div>; // Render error state if data fetching fails
+    return (
+      <div className="flex items-center justify-center h-screen text-red-500">
+        Error occurred while fetching data.
+      </div>
+    );
   }
 
-  // Destructure member data
   const {
     firstName,
     middleName,
@@ -37,71 +46,84 @@ const MyProfilePage = () => {
     profilePhoto,
     createdAt,
     updatedAt,
-    // Add other fields if needed
+    coverPhoto,
   } = memberData.data;
 
   const formattedCreatedAt = moment(createdAt).format("MMMM Do YYYY, h:mm a");
   const formattedUpdatedAt = moment(updatedAt).format("MMMM Do YYYY, h:mm a");
 
   return (
-    <>
-      <div className="flex flex-col items-center pb-10">
-        <img
-          className="w-24 h-24 mb-3 rounded-full shadow-lg"
-          src={profilePhoto}
-          alt="Bonnie image"
-        />
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          {`${firstName} ${middleName} ${lastName}`}
-        </h5>
-
-        <div className=" flex flex-col items-center justify-center overflow-hidden w-96">
-          {/* Render member information */}
-          <div className="p-4">
-            <div className="mb-2">
-              <FaUser className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for name */}
-              {firstName} {middleName && `${middleName} `} {lastName}
+    <div className="min-h-screen pb-20">
+      <div className="max-w-4xl mx-auto rounded-lg overflow-hidden">
+        {/* Cover Photo */}
+        <div className="h-48 bg-blue-500">
+          <Image
+            src={coverPhoto}
+            alt={`${firstName} ${lastName}`}
+            className="w-full h-full object-cover"
+            width={500}
+            height={500}
+          />
+        </div>
+        {/* Profile Header */}
+        <div className="flex items-center -mt-16 px-6 py-4">
+          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-pink-500">
+            <Image
+              src={profilePhoto}
+              alt={`${firstName} ${lastName}`}
+              className="w-full h-full object-cover"
+              width={500}
+              height={500}
+            />
+          </div>
+          <div className="ml-6 mt-12">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-700 via-blue-700 to-blue-500 inline-block text-transparent bg-clip-text">
+              {`${firstName} ${middleName ? `${middleName} ` : ""}${lastName}`}
+            </h2>
+          </div>
+        </div>
+        <div className="px-6 py-4 flex justify-center">
+          <div className="flex">
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mr-2 flex items-center">
+              <FaUser className="inline-block mr-2" />
+              Edit Profile
+            </button>
+            <button className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full flex items-center">
+              <FaCalendar className="inline-block mr-2" />
+              Consultations
+            </button>
+          </div>
+        </div>
+        {/* Profile Details */}
+        <div className="px-6 py-4">
+          <div className="mb-4 text-gray-700">
+            <div className="flex items-center mb-2">
+              <FaInfoCircle className="text-pink-500 mr-2" />
+              <span className="font-semibold">About Me</span>
             </div>
-            <div className="mb-2">
-              <FaEnvelope className="inline-block mr-2 text-red-500" />{" "}
-              {/* Icon for email */}
-              {email}
+            <p>{bio}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="flex items-center text-gray-700">
+              <FaEnvelope className="text-pink-500 mr-2" />
+              <span>{email}</span>
             </div>
-            <div className="mb-2">
-              <FaPhoneAlt className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for phone number */}
-              {mobile}
+            <div className="flex items-center text-gray-700">
+              <FaPhoneAlt className="text-pink-500 mr-2" />
+              <span>{mobile}</span>
             </div>
-            <div className="mb-2">
-              <FaGlobe className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for country */}
-              {country}
+            <div className="flex items-center text-gray-700">
+              <FaGlobe className="text-pink-500 mr-2" />
+              <span>{country}</span>
             </div>
-            <div className="mb-2">
-              <FaInfoCircle className="inline-block mr-2  text-red-500" />{" "}
-              {/* Icon for bio */}
-              {bio}
-            </div>
-
-            <div className="mb-2">
-              <span className="font-semibold">
-                <FaClock className="inline-block mr-2  text-red-500" />
-                Created on:
-              </span>{" "}
-              {formattedCreatedAt}
-            </div>
-            <div className="mb-4">
-              <span className="font-semibold">
-                <FaClock className="inline-block mr-2  text-red-500" />
-                Last updated
-              </span>{" "}
-              {formattedUpdatedAt}
+            <div className="flex items-center text-gray-700">
+              <FaClock className="text-pink-500 mr-2" />
+              <span>Joined on: {formattedCreatedAt}</span>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

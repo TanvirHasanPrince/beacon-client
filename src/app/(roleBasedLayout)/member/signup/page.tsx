@@ -23,27 +23,36 @@ const MemberSignUpPage = () => {
     "Traveling",
   ];
 
-  const onSubmit = async (data: any) => {
-    const rawImage = data.profilePhoto[0];
+  const uploadToCloudinary = async (file: any) => {
     const formData = new FormData();
-    formData.append("file", rawImage);
+    formData.append("file", file);
     formData.append("upload_preset", "beaconPreset");
 
+    const uploadResponse = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
+      { method: "POST", body: formData }
+    );
+
+    if (!uploadResponse.ok) {
+      throw new Error("Image upload failed");
+    }
+
+    const imageData = await uploadResponse.json();
+    return imageData.secure_url;
+  };
+
+  const onSubmit = async (data: any) => {
     try {
-      const uploadResponse = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
-        { method: "POST", body: formData }
-      );
+      // Upload profile photo
+      const profilePhotoUrl = await uploadToCloudinary(data.profilePhoto[0]);
+      data.profilePhoto = profilePhotoUrl;
 
-      if (!uploadResponse.ok) {
-        throw new Error("Image upload failed");
-      }
+      // Upload cover photo
+      const coverPhotoUrl = await uploadToCloudinary(data.coverPhoto[0]);
+      data.coverPhoto = coverPhotoUrl;
 
-      const imageData = await uploadResponse.json();
-      data.profilePhoto = imageData.secure_url;
-
+      // Submit the form data with updated URLs
       const response = await addMemberMutation(data);
-      console.log(response);
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -159,10 +168,25 @@ const MemberSignUpPage = () => {
             <span className="text-red-500">Please upload a profile photo.</span>
           )}
         </div>
+
+        <div className="mb-4">
+          <label className="block mb-2" htmlFor="coverPhoto">
+            Cover Photo
+          </label>
+          <input
+            type="file"
+            {...register("coverPhoto", { required: true })}
+            id="coverPhoto"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+          />
+          {errors.coverPhoto && (
+            <span className="text-red-500">Please upload a cover photo.</span>
+          )}
+        </div>
         <div className="flex justify-center ">
           <button
             type="submit"
-            className="mt-2 mb-8  bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            className="mt-2 mb-8 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           >
             Submit
           </button>
