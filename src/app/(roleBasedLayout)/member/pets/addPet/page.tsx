@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { useAddPetMutation } from "@/redux/api/petApi";
 import { getUserInfo } from "@/services/auth.service";
 import { toast } from "react-hot-toast";
+import { ENUM_OF_PET_SPECIES } from "@/enums/sharedEnums";
+import { tailwindPageTitleClass } from "@/components/tailwindClasses";
+import { useRouter } from "next/navigation";
 
 const AddPetPage = () => {
   const {
@@ -13,6 +16,8 @@ const AddPetPage = () => {
     reset,
   } = useForm();
   const [addPetMutation, { isLoading, isError, error }] = useAddPetMutation();
+
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
     const rawImage = data.photo[0];
@@ -37,7 +42,9 @@ const AddPetPage = () => {
       data.memberId = userId;
 
       const response = await addPetMutation(data);
+
       toast.success(`Pet added successfully!`);
+      router.push("/member/myProfile");
       reset();
     } catch (error) {
       toast.error("Could not add pet");
@@ -53,7 +60,9 @@ const AddPetPage = () => {
         className="flex items-center flex-col w-full max-w-md"
       >
         <div className="mb-4 w-full">
-          <label className="block mb-2">Pet Name</label>
+          <label className={`${tailwindPageTitleClass} block mb-2`}>
+            Pet Name
+          </label>
           <input
             type="text"
             {...register("petName", { required: true })}
@@ -63,16 +72,20 @@ const AddPetPage = () => {
             <p className="text-red-500">Pet Name is required</p>
           )}
         </div>
+
         <div className="mb-4 w-full">
           <label className="block mb-2">Species</label>
-          <input
-            type="text"
+          <select
             {...register("species", { required: true })}
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          />
-          {errors.species && (
-            <p className="text-red-500">Species is required</p>
-          )}
+          >
+            {/* Map over the values of the ENUM_OF_COUNTRIES enum to generate options */}
+            {Object.values(ENUM_OF_PET_SPECIES).map((spcy) => (
+              <option key={spcy} value={spcy}>
+                {spcy}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4 w-full">
           <label className="block mb-2">Age</label>

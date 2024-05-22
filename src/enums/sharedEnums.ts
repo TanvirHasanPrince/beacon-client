@@ -411,3 +411,33 @@ export enum ENUM_CITIES_OF_UK {
   Greater_Manchester = "Greater Manchester", // Can be included based on interpretation
   West_Midlands = "West Midlands", // Can be included based on interpretation
 }
+
+export enum ENUM_OF_PET_SPECIES {
+  "DOG" = "Dog",
+  "CAT" = "Cat",
+  "BIRD" = "Bird",
+  "RABBIT" = "Rabbit",
+  "HAMSTER" = "Hamster",
+  "GUINEA PIG" = "Guinea Pig",
+  "FERRET" = "Ferret",
+  "MOUSE" = "Mouse",
+  "RAT" = "Rat",
+  "CHINCHILLA" = "Chinchilla",
+  "FISH" = "Fish",
+  "TURTLE" = "Turtle",
+  "SNAKE" = "Snake",
+  "LIZARD" = "Lizard",
+  "FROG" = "Frog",
+  "HORSE" = "Horse",
+  "PONY" = "Pony",
+  "DONKEY" = "Donkey",
+  "GOAT" = "Goat",
+  "PIG" = "Pig",
+  "CHICKEN" = "Chicken",
+  "DUCK" = "Duck",
+  "GOOSE" = "Goose",
+  "SHEEP" = "Sheep",
+  "COW" = "Cow",
+  "ALPACA" = "Alpaca",
+  "LLAMA" = "Llama",
+}

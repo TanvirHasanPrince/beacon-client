@@ -1,6 +1,7 @@
 "use client";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -33,10 +34,12 @@ const PetsPage = () => {
             key={pet.id}
             className=" flex flex-col items-center justify-center border border-gray-300 rounded-md p-12"
           >
-            <img
+            <Image
               src={pet.photo}
               alt={pet.petName}
               className="w-24 h-24 mb-2 rounded-full shadow-lg"
+              width={500}
+              height={500}
             />
             <h3 className="text-lg font-semibold mb-1 text-left">
               {pet.petName}
