@@ -5,17 +5,14 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaUser,
-  FaGlobe,
   FaInfoCircle,
-  FaClock,
   FaCalendar,
 } from "react-icons/fa";
 import React from "react";
-import moment from "moment";
 import Image from "next/image";
 
 const MyProfilePage = () => {
-  const { role, userId } = getUserInfo() as any;
+  const { userId } = getUserInfo() as any;
 
   const { data: memberData, isLoading, isError } = useMemberQuery(userId);
 
@@ -44,13 +41,8 @@ const MyProfilePage = () => {
     country,
     bio,
     profilePhoto,
-    createdAt,
-    updatedAt,
     coverPhoto,
   } = memberData.data;
-
-  const formattedCreatedAt = moment(createdAt).format("MMMM Do YYYY, h:mm a");
-  const formattedUpdatedAt = moment(updatedAt).format("MMMM Do YYYY, h:mm a");
 
   return (
     <div className="min-h-screen pb-20">
@@ -85,12 +77,10 @@ const MyProfilePage = () => {
         <div className="px-6 py-4 flex justify-center">
           <div className="flex">
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mr-2 flex items-center">
-              <FaUser className="inline-block mr-2" />
-              Edit Profile
+              <FaUser className="inline-block mr-2" /> Edit Profile
             </button>
             <button className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full flex items-center">
-              <FaCalendar className="inline-block mr-2" />
-              Consultations
+              <FaCalendar className="inline-block mr-2" /> Consultations
             </button>
           </div>
         </div>
@@ -111,14 +101,6 @@ const MyProfilePage = () => {
             <div className="flex items-center text-gray-700">
               <FaPhoneAlt className="text-pink-500 mr-2" />
               <span>{mobile}</span>
-            </div>
-            <div className="flex items-center text-gray-700">
-              <FaGlobe className="text-pink-500 mr-2" />
-              <span>{country}</span>
-            </div>
-            <div className="flex items-center text-gray-700">
-              <FaClock className="text-pink-500 mr-2" />
-              <span>Joined on: {formattedCreatedAt}</span>
             </div>
           </div>
         </div>
