@@ -1,7 +1,5 @@
 "use client";
 import { useJournalEntryQuery } from "@/redux/api/journalApi";
-import React from "react";
-import imageTest from "../../../../../../assets/HomePage/A_group_of_diverse_friends_standing_on_a_cliff.jpg";
 import Image from "next/image";
 
 interface IParams {
