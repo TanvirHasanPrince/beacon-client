@@ -10,6 +10,7 @@ import {
 } from "@/enums/sharedEnums";
 import Image from "next/image";
 import eventPlaceholder from "../../../../../assets/Events/Default_People_having_fun_at_a_coffee_shop_The_vibe_is_fun_and_0.jpg";
+import { useRouter } from "next/navigation";
 
 const AddEvent = () => {
   const {
@@ -31,6 +32,8 @@ const AddEvent = () => {
       dateTimeInput.min = currentDateTime;
     }
   }, []);
+
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
     setSubmitting(true);
@@ -62,6 +65,7 @@ const AddEvent = () => {
 
       await addEventMutation(data);
       toast.success(`Event added successfully!`);
+      router.push("/member/events/myEvents");
       reset();
     } catch (error) {
       toast.error("Could not add event");
