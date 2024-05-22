@@ -3,8 +3,7 @@ import React from "react";
 import { getUserInfo } from "@/services/auth.service";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { tailwindPageTitleClass } from "@/components/tailwindClasses";
-import testImage from "../../../../../assets/HomePage/A_group_of_diverse_friends_standing_on_a_cliff.jpg";
-import Image from "next/image";
+import Link from "next/link";
 
 const MyJournalsPage = () => {
   const { userId } = getUserInfo() as any;
@@ -27,9 +26,10 @@ const MyJournalsPage = () => {
           My Journals
         </h1>
         {journals.map((journal: any) => (
-          <div
+          <Link
+            href={`/member/journals/myJournals/${journal.id}`}
             key={journal.id}
-            className="flex flex-col items-start justify-center border border-gray-300 rounded-lg p-4 mb-4 w-full max-w-3xl bg-[#e0f7fa] shadow-md transform hover:scale-105 hover:translate-y-2 transition-all duration-1000"
+            className="flex flex-col items-start justify-center border border-gray-300 rounded-lg p-4 mb-4 w-full max-w-3xl bg-[#e0f7fa] shadow-md transform hover:scale-105 hover:translate-y-2 transition-all duration-500"
           >
             <div className="flex items-center mb-2 ">
               <div className="text-2xl font-bold  mr-1 text-pink-600">
@@ -51,7 +51,7 @@ const MyJournalsPage = () => {
               {journal.content.slice(0, 100)}
               {journal.content.length > 100 ? "..." : ""}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

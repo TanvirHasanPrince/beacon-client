@@ -24,12 +24,33 @@ const AddJournalEntry = () => {
 
   const router = useRouter();
 
+  const uploadToCloudinary = async (file: any) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "beaconPreset");
+
+    const uploadResponse = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
+      { method: "POST", body: formData }
+    );
+
+    if (!uploadResponse.ok) {
+      throw new Error("Image upload failed");
+    }
+
+    const imageData = await uploadResponse.json();
+    return imageData.secure_url;
+  };
+
   const onSubmit = async (data: any) => {
     setSubmitting(true);
 
     try {
       const { userId } = getUserInfo() as any;
       data.memberId = userId;
+
+      const journalPhotoUrl = await uploadToCloudinary(data.journalPhoto[0]);
+      data.journalPhoto = journalPhotoUrl;
 
       // Determine sentiment of the content
       const sentimentResult = getSentiment(data.content);
@@ -138,6 +159,21 @@ const AddJournalEntry = () => {
             placeholder="Additional Info"
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
           ></textarea>
+
+          <div className="mb-4">
+            <label className="block mb-2" htmlFor="journalPhoto">
+              Journal Photo
+            </label>
+            <input
+              type="file"
+              {...register("journalPhoto", { required: true })}
+              id="journalPhoto"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+            />
+            {errors.profilePhoto && (
+              <span className="text-red-500">Please upload a photo.</span>
+            )}
+          </div>
         </div>
         <button
           type="submit"
