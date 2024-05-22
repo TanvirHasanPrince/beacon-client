@@ -5,7 +5,10 @@ import { useAddPetMutation } from "@/redux/api/petApi";
 import { getUserInfo } from "@/services/auth.service";
 import { toast } from "react-hot-toast";
 import { ENUM_OF_PET_SPECIES } from "@/enums/sharedEnums";
-import { tailwindPageTitleClass } from "@/components/tailwindClasses";
+import {
+  tailwindButtonClass,
+  tailwindPageTitleClass,
+} from "@/components/tailwindClasses";
 import { useRouter } from "next/navigation";
 
 const AddPetPage = () => {
@@ -54,15 +57,13 @@ const AddPetPage = () => {
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-12">
-      <h1 className="text-2xl font-semibold mt-8 mb-4">Add Pet</h1>
+      <h1 className={`${tailwindPageTitleClass}`}>Add Pet</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex items-center flex-col w-full max-w-md"
       >
         <div className="mb-4 w-full">
-          <label className={`${tailwindPageTitleClass} block mb-2`}>
-            Pet Name
-          </label>
+          <label className={`block mb-2`}>Pet Name</label>
           <input
             type="text"
             {...register("petName", { required: true })}
@@ -118,10 +119,7 @@ const AddPetPage = () => {
           )}
         </div>
         <div className="flex justify-center ">
-          <button
-            type="submit"
-            className="mt-2 mb-8 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
+          <button type="submit" className={`${tailwindButtonClass}`}>
             Submit
           </button>
         </div>
