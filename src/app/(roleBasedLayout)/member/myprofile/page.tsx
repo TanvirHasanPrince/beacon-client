@@ -55,7 +55,7 @@ const MyProfilePage = () => {
   console.log(pets);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen">
       <div className="max-w-4xl mx-auto rounded-lg overflow-hidden">
         {/* Cover Photo */}
         <div className="h-48 bg-blue-500">
