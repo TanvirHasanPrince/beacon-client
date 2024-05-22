@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import Link from "next/link";
 import { useEventsQuery } from "@/redux/api/eventApi";
 import Image from "next/image";
@@ -7,60 +7,69 @@ import {
   tailwindButtonClass,
   tailwindPageTitleClass,
 } from "@/components/tailwindClasses";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const EventCard = ({ event }: { event: any }) => {
   return (
-    <div className="flex flex-col items-center justify-center shadow-xl rounded-lg overflow-hidden mb-4">
-      <Image
-        src={event.photo}
-        alt={event.title}
-        className="w-full"
-        width={500}
-        height={500}
-      />
-      <div className="p-4 flex flex-col items-center justify-center">
-        <h2 className="text-xl font-semibold">{event.title}</h2>
-        <p className="text-gray-600">
-          {new Date(event.date_time).toLocaleDateString("en-US", {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-          })}
-          {", "}
-          {new Date(event.date_time).toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-          })}
+    <Link href={`/member/events/allEvents/${event.id}`} key={event.id}>
+      <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg shadow-xl p-6 mb-8 w-full max-w-3xl">
+        <p className="text-xl mb-2 text-gray-600 font-semi-bold">
+          {event.title}
         </p>
-        <p className="text-gray-600">{event.location}</p>
+        <div className="flex items-center justify-center">
+          <Image
+            src={event.photo}
+            alt={event.title}
+            className="w-28 h-auto mr-8"
+            width={250}
+            height={250}
+          />
+          <div className="flex flex-col justify-start">
+            <p className="text-sm mb-2 text-red-600 font-bold">
+              {new Date(event.date_time).toLocaleDateString("en-US", {
+                weekday: "short",
+                day: "numeric",
+                month: "short",
+              })}
+              {", "}
+              {new Date(event.date_time).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+            </p>
+            <p className="text-sm mb-2 text-gray-600">
+              <FaMapMarkerAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+              {event.location}
+            </p>
+          </div>
+        </div>
       </div>
-      <Link href={`/member/events/allEvents/${event.id}`}>
-        <button className={tailwindButtonClass}>View Details</button>
-      </Link>
-    </div>
+    </Link>
   );
 };
 
 const AllEventsPage = () => {
   const { data: eventsData, error, isLoading } = useEventsQuery({});
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>("");
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   const eventsArray = eventsData.data;
-  const handleCategoryChange = (e: any) => {
+
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
   };
-  const handleCityChange = (e: any) => {
+
+  const handleCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedCity(e.target.value);
   };
-  // const handleResetFilters = () => {
-  //   setSelectedCategory("");
-  //   setSelectedCity("");
-  // };
 
   const filteredEvents = eventsArray.filter((event: any) => {
     return (
@@ -69,13 +78,13 @@ const AllEventsPage = () => {
     );
   });
 
-  const uniqueCategories = Array.from(
+  // Ensure uniqueCategories is typed correctly
+  const uniqueCategories: string[] = Array.from(
     new Set(eventsArray.map((event: any) => event.categories))
-  ) as string[];
-
-  const uniqueCities = Array.from(
+  );
+  const uniqueCities: string[] = Array.from(
     new Set(eventsArray.map((event: any) => event.city))
-  ) as string[];
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -95,7 +104,7 @@ const AllEventsPage = () => {
               className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none"
             >
               <option value="">All</option>
-              {uniqueCategories.map((category) => (
+              {uniqueCategories.map((category: string) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
@@ -124,7 +133,7 @@ const AllEventsPage = () => {
               className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none"
             >
               <option value="">All</option>
-              {uniqueCities.map((city) => (
+              {uniqueCities.map((city: string) => (
                 <option key={city} value={city}>
                   {city}
                 </option>
@@ -141,12 +150,6 @@ const AllEventsPage = () => {
             </div>
           </div>
         </div>
-        {/* <button
-          onClick={handleResetFilters}
-          className={`${tailwindButtonClass} mt-6 px-4 py-2`}
-        >
-          Reset Filters
-        </button> */}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredEvents.map((event: any) => (
