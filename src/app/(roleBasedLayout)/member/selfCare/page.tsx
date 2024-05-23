@@ -11,7 +11,7 @@ const SelfCareHomePage = () => {
   return (
     <>
       <div className=" flex flex-col justify-center items-center">
-        <div className="mt-8">
+        <div className="mt-8 grid grid-cols-2 gap-4">
           <div className="w-full max-w-xs overflow-hidden rounded-3xl shadow-lg mb-8">
             <Link href={"/member/selfCare/meditation"}>
               <Image
