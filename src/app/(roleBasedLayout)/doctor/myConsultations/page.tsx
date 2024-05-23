@@ -3,10 +3,8 @@ import SentimentAnalysisChart from "@/components/ui/SentimentAnalysisChart";
 import { useDoctorQuery } from "@/redux/api/doctorApi";
 import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
-import Link from "next/link";
 import React from "react";
 import { FaCalendarAlt, FaUserAlt, FaLink } from "react-icons/fa";
-import SentimentAnalysisPage from "./sentimentAnalysis/page";
 
 const DoctorConsultationsPage = () => {
   const { userId } = getUserInfo() as any;

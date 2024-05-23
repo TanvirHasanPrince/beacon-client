@@ -27,7 +27,6 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   memberId,
 }) => {
   const { data: memberData } = useMemberQuery(memberId);
-
   const sentimentMapping: Record<Sentiment, number> = {
     "Very Positive": 2,
     Positive: 1,
@@ -39,22 +38,45 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   const journals = memberData?.data.journals || [];
   const data = journals.map(
     (journal: { date: string; sentimentResult: Sentiment }) => ({
-      date: new Date(journal.date).toISOString(), // Ensure date is in ISO format
+      date: new Date(journal.date).toISOString(),
       sentiment: sentimentMapping[journal.sentimentResult],
     })
   );
 
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const sentiment = payload[0].payload.sentiment;
+      const sentimentText = Object.entries(sentimentMapping).find(
+        ([key, value]) => value === sentiment
+      )?.[0];
+      return (
+        <div className="bg-white p-2 rounded shadow-lg">
+          <p className="font-bold">{`Date: ${format(
+            new Date(label),
+            "MMMM do, yyyy"
+          )}`}</p>
+          <p className="font-semibold">{`Sentiment: ${sentimentText}`}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
-    <div>
-      <h2 className="text-lg font-bold mb-2">Sentiment Analysis</h2>
+    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+        Sentiment Analysis
+      </h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
           <XAxis
             dataKey="date"
-            tickFormatter={(str) => format(new Date(str), "MMMM do")}
-            axisLine={true}
+            tickFormatter={(str) => format(new Date(str), "MMM do")}
+            axisLine={false}
             tickLine={false}
+            tick={{ fontSize: 12, fontWeight: 500, color: "#666" }}
           />
           <YAxis
             domain={[-2, 2]}
@@ -65,17 +87,28 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
               );
               return sentimentText || value;
             }}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 12, fontWeight: 500, color: "#666" }}
           />
-          <Tooltip
-            labelFormatter={(label) => format(new Date(label), "MMMM do, yyyy")}
+          <Tooltip content={<CustomTooltip />} />
+          <Legend
+            wrapperStyle={{
+              paddingTop: 20,
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#333",
+            }}
           />
-          <Legend />
           <Line
             type="monotone"
             dataKey="sentiment"
-            stroke="#8884d8"
+            stroke="#4f46e5"
             strokeWidth={2}
-            dot={true}
+            dot={{ stroke: "#4f46e5", strokeWidth: 2, r: 5 }}
+            activeDot={{ stroke: "#4f46e5", strokeWidth: 5, r: 8 }}
+            isAnimationActive={true}
+            animationDuration={500}
           />
         </LineChart>
       </ResponsiveContainer>
