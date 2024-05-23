@@ -5,8 +5,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { getUserInfo } from "@/services/auth.service";
 import { useDoctorsQuery } from "@/redux/api/doctorApi";
-import Link from "next/link";
 import { useAddConsultationMutation } from "@/redux/api/consultationApi";
+import { tailwindButtonClass } from "@/components/tailwindClasses";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   startTime: string;
@@ -54,10 +55,6 @@ interface DoctorsResponse {
   data: Doctor[];
 }
 
-interface DoctorsData {
-  doctors: DoctorsResponse;
-}
-
 const CreateConsultationPage = () => {
   const {
     register,
@@ -65,7 +62,9 @@ const CreateConsultationPage = () => {
     formState: { errors },
   } = useForm<FormData>();
   const [submitting, setSubmitting] = useState(false);
-  const { data: doctorsData } = useDoctorsQuery({}) as { data: DoctorsData };
+  const { data: doctorsData } = useDoctorsQuery({}) as {
+    data: DoctorsResponse;
+  };
   const [addConsultation, { isLoading }] = useAddConsultationMutation();
 
   useEffect(() => {
@@ -78,7 +77,7 @@ const CreateConsultationPage = () => {
     }
   }, []);
 
-  const { userId } = getUserInfo() as any;
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setSubmitting(true);
@@ -102,8 +101,14 @@ const CreateConsultationPage = () => {
         meetingLink: `${process.env.NEXT_PUBLIC_BROWSER_URL}/meetingRoom/${userId}`,
       };
 
-      await addConsultation(formData).unwrap();
-      toast.success("Consultation added successfully");
+      console.log(formData);
+
+      const response = await addConsultation(formData).unwrap();
+
+      if (response.success) {
+        toast.success("Consultation added successfully");
+        router.push("/member/consultations/myConsultations");
+      }
     } catch (error) {
       toast.error("Could not add consultation");
       console.error("An error occurred:", error);
@@ -150,11 +155,11 @@ const CreateConsultationPage = () => {
           <label className="block mb-2">Doctors</label>
           <select
             {...register("doctorId")}
-            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-pink-500"
           >
-            {doctorsData?.doctors?.data?.map((doctor: any) => (
+            {doctorsData?.data?.map((doctor: Doctor) => (
               <option key={doctor.id} value={doctor.id}>
-                {doctor.id} {doctor.firstName} {doctor.lastName}
+                {doctor.firstName} {doctor.lastName}
               </option>
             ))}
           </select>
@@ -162,17 +167,11 @@ const CreateConsultationPage = () => {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-2 mb-8 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          className={`${tailwindButtonClass}`}
         >
           {submitting ? "Adding..." : "Submit"}
         </button>
       </form>
-
-      <Link href={`/meetingRoom/${userId}`}>
-        <button className="bg-red-500 py-2 px-8 text-white mb-4">
-          Join call
-        </button>
-      </Link>
     </div>
   );
 };

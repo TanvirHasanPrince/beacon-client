@@ -19,11 +19,11 @@ export const doctorApi = baseApi.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response) => {
-        return {
-          doctors: response,
-        };
-      },
+      // transformResponse: (response) => {
+      //   return {
+      //     doctors: response,
+      //   };
+      // },
       providesTags: [tagTypes.doctor],
     }),
     doctor: build.query({
