@@ -5,6 +5,7 @@ import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import React from "react";
 import { FaCalendarAlt, FaUserAlt, FaLink } from "react-icons/fa";
+import Image from "next/image"; // Assuming you have images for doctors
 
 const MyConsultationsPage = () => {
   const { userId } = getUserInfo() as any;
@@ -34,15 +35,12 @@ const MyConsultationsPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link href="/member/consultations/createConsultation">
-        <button className="bg-red-500 py-2 px-8 text-white mb-4">
-          Consult a doctor
-        </button>
-      </Link>
+      {/* Heading */}
       <h1 className="text-2xl font-bold mb-8 text-gray-800">
         Your Consultations
       </h1>
-      <div className="p-8 w-full max-w-3xl">
+
+      <div className="mt-4 px-8 w-full max-w-3xl">
         {consultations.map((consultation: any) => (
           <ConsultationCard key={consultation.id} consultation={consultation} />
         ))}
@@ -74,28 +72,47 @@ const ConsultationCard = ({ consultation }: { consultation: any }) => {
     .join(" ");
 
   return (
-    <div className="flex flex-col items-start justify-center border border-gray-300 rounded-lg shadow-lg p-6 mb-8 w-full">
-      <p className="text-sm mb-2 text-gray-600">
-        <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`Start: ${new Date(consultation.startTime).toLocaleString()}`}
-      </p>
-      <p className="text-sm mb-2 text-gray-600">
-        <FaCalendarAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`End: ${new Date(consultation.endTime).toLocaleString()}`}
-      </p>
-      <p className="text-sm mb-2 text-gray-600">
-        <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        {`Doctor: ${doctorName}`}
-      </p>
-      <Link
-        href={consultation.meetingLink}
-        rel="noopener noreferrer"
-        className="text-sm mb-2 text-blue-500 hover:text-blue-700 underline"
-      >
-        <FaLink className="inline-block h-4 w-4 mr-1 text-gray-400" />
-        Join Meeting
-      </Link>
-    </div>
+    <Link href={`/member/consultations/${consultation.id}`}>
+      <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg shadow-xl p-6 mb-8 w-full">
+        <p className="text-xl mb-2 text-gray-600 font-semi-bold">
+          {doctorName}
+        </p>
+        <div className="flex items-center justify-center w-full">
+          <div className="flex flex-col justify-start">
+            <p className="text-sm mb-2 text-red-600 font-bold">
+              {new Date(consultation.startTime).toLocaleDateString("en-US", {
+                weekday: "short",
+                day: "numeric",
+                month: "short",
+              })}
+              {", "}
+              {new Date(consultation.startTime).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+              {" - "}
+              {new Date(consultation.endTime).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+            </p>
+            <p className="text-sm mb-2 text-gray-600">
+              <FaUserAlt className="inline-block h-4 w-4 mr-1 text-gray-400" />
+              {`Doctor: ${doctorName}`}
+            </p>
+            <Link
+              href={consultation.meetingLink}
+              rel="noopener noreferrer"
+              className="text-sm text-center mt-2"
+            >
+              <button className=" py-2 px-8 bg-gradient-to-r from-violet-300 to-fuchsia-300 hover:bg-blue-600 text-black font-semibold rounded-md">
+                Join Meeting
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </Link>
   );
 };
 
