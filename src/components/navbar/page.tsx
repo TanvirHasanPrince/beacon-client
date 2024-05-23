@@ -4,11 +4,10 @@ import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { tailwindLogoutButtonClass } from "../tailwindClasses";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { role, id } = getUserInfo() as any;
+  const { role } = getUserInfo() as any;
   const router = useRouter();
 
   const logOut = () => {
@@ -162,6 +161,12 @@ const Navbar = () => {
                     className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Add Journal
+                  </Link>
+                  <Link
+                    href="/member/specialists"
+                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Specialists
                   </Link>
 
                   <Link
