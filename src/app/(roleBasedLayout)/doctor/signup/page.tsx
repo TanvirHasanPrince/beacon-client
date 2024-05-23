@@ -9,6 +9,8 @@ import {
   ENUM_OF_DOCTOR_AFFILIATION,
   ENUM_OF_DOCTOR_SPECIALIZATION,
 } from "@/enums/sharedEnums";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const DoctorSignUpPage = () => {
   const {
@@ -18,6 +20,8 @@ const DoctorSignUpPage = () => {
   } = useForm();
   const [addDoctorMutation, { isLoading, isError, error }] =
     useAddDoctorMutation();
+
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
     const rawImage = data.profilePhoto[0];
@@ -65,7 +69,10 @@ const DoctorSignUpPage = () => {
       data.verificationDocuments = verificationDocumentsUrls;
 
       const response = await addDoctorMutation(data);
-      console.log(response);
+      if (response) {
+        toast.success("Registration Successful");
+        router.push("/login");
+      }
     } catch (error) {
       console.error("An error occurred:", error);
     }
