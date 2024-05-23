@@ -13,7 +13,7 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
   useEffect(() => {
     const myMeeting = async () => {
       const appId = 539364425;
-      const serverSecret = `2efdafe9501b8420eb75a1a00668c413`;
+      const serverSecret = `${process.env.NEXT_PUBLIC_ZEGO_SERVER_SECRET}`;
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appId,
         serverSecret,
@@ -22,6 +22,7 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
         "Beacon"
       );
       const meetingLink = `${process.env.NEXT_PUBLIC_BROWSER_URL}/meetingRoom/${roomId}`;
+
       const zc = ZegoUIKitPrebuilt.create(kitToken);
       zc.joinRoom({
         container: containerRef.current,
@@ -38,7 +39,7 @@ const MeetingRoomPageForUser = ({ params }: { params: Params }) => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-screen "
+      className="w-screen "
       style={{ width: "100vw", height: "100vh" }}
     />
   );
