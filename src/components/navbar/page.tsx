@@ -16,10 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className="sticky top-0 z-50 bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800"
-      x-data="{ isOpen: false }"
-    >
+    <nav className="sticky top-0 z-50 bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800">
       <div className="container px-6 py-4 mx-auto bg-gradient-to-r from-pink-100 to-blue-100">
         <div className="lg:flex lg:items-center lg:justify-between">
           <div className="flex items-center justify-between">
@@ -67,49 +64,46 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            className={`mt-5 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center  ${
+            className={`mt-5 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
               isOpen
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-full"
             }`}
           >
-            <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
+            <div className="flex flex-col lg:flex-row lg:space-x-4">
               {role === "admin" && (
                 <>
                   <Link
                     href="/admin/myProfile"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My profile
                   </Link>
-
                   <Link
                     href="/admin/addAdmin"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Add Admin
                   </Link>
                 </>
               )}
-
               {role === "doctor" && (
                 <>
-                  {" "}
                   <Link
                     href="/doctor/myProfile"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My profile
                   </Link>
                   <Link
                     href="/doctor/myConsultations"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My consultations
                   </Link>
                   <button
                     onClick={logOut}
-                    className={`mt-8 px-3 py-2 mx-3 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700`}
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700"
                   >
                     Logout
                   </button>
@@ -119,78 +113,67 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/member/myProfile"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My Profile
                   </Link>
-
-                  {/* <Link
-                    href="/member/pets"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    My Pets
-                  </Link> */}
                   <Link
                     href="/member/events/myEvents"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My Events
                   </Link>
                   <Link
                     href="/member/events/subscribedEvents"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Subscribed Events
                   </Link>
-
                   <Link
                     href="/member/events/allEvents"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Browse Events
                   </Link>
                   <Link
                     href="/member/journals/myJournals"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     My Journals
                   </Link>
-
                   <Link
                     href="/member/journals/addJournal"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Add Journal
                   </Link>
                   <Link
                     href="/member/specialists"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Specialists
                   </Link>
-
                   <Link
                     href="/member/consultations/myConsultations"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Consultations
                   </Link>
                   <Link
                     href="/member/selfCare"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     Self-care
                   </Link>
                   <Link
                     href="/member/kindnessChallenge"
-                    className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-pink-100 dark:hover:bg-gray-700"
+                    className="px-3 py-2 text-gray-700 transition-colors duration-300 transform rounded-md dark:text-gray-200 hover:bg-pink-100 dark:hover:bg-gray-700"
                   >
                     Kindness Challenge
                   </Link>
-
                   <button
                     onClick={logOut}
-                    className={`mt-8 px-3 py-2 mx-3 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700`}
+                    className="px-3 py-2 mt-8 text-gray-700 transition-colors duration-300 transform rounded-md bg-gradient-to-r from-violet-300 to-fuchsia-300 dark:text-gray-200 hover:bg-fuchsia-100 dark:hover:bg-gray-700 lg:mt-0"
                   >
                     Logout
                   </button>
@@ -218,7 +201,6 @@ const Navbar = () => {
                   />
                 </svg>
               </button>
-
               <button
                 type="button"
                 className="flex items-center focus:outline-none"

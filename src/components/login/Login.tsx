@@ -20,7 +20,7 @@ const loginButtonStyle = {
   margin: "15px auto", // Adjusted margin for centering
   padding: "0 30px",
   color: "white",
-  backgroundColor: "#FF5252", // Red color
+  backgroundImage: "linear-gradient(to right, #D8B4FE, #F0ABFC)", // Gradient color
   border: "none",
   borderRadius: "6px",
   fontSize: "1.1rem",
@@ -28,6 +28,9 @@ const loginButtonStyle = {
   letterSpacing: "0.5px",
   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Box shadow for depth
   transition: "background-color 0.3s ease", // Smooth transition
+  ":hover": {
+    backgroundColor: "#1E40AF", // Blue color on hover
+  },
 };
 
 const LoginPage = () => {
@@ -62,7 +65,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Row justify="center" align="middle" style={{ paddingTop: "100px" }}>
+    <Row justify="center" align="middle" style={{ paddingTop: "" }}>
       <Col sm={12} md={16} lg={8}>
         <BeaconLogin />
       </Col>
@@ -122,7 +125,7 @@ const LoginPage = () => {
                 >
                   Login
                 </Button>
-                <p> Dont have an account? </p>
+                <p> Don&apos;t have an account? </p>
                 <Link href={"/member/signup"}>
                   <Button
                     type="primary"
@@ -133,7 +136,7 @@ const LoginPage = () => {
                     Sign Up
                   </Button>
                 </Link>
-                <p> Are you a mental health professional? </p>
+                <p> Are you a Mental Health Professional? </p>
                 <Link href={"/doctor/signup"} className="flex flex-row">
                   <Button
                     type="primary"
@@ -141,7 +144,7 @@ const LoginPage = () => {
                     disabled={isButtonDisabled}
                     style={loginButtonStyle}
                   >
-                    Sign Up Here 🧑🏻‍⚕️
+                    Sign Up Here
                   </Button>
                 </Link>
               </div>
