@@ -170,11 +170,12 @@ const SpecialistDetailsPage = ({ params }: { params: IParams }) => {
                     key={index}
                     className="rounded-lg shadow-lg overflow-hidden mx-2 mb-4 flex flex-col items-center justify-center"
                   >
-                    <div className="relative h-24 w-24 mx-auto">
+                    <div className="relative h-full w-full mx-auto">
                       <Image
                         src={doc}
                         alt={`Verification Document ${index}`}
-                        fill
+                        width={250}
+                        height={250}
                         className="object-cover rounded-2xl mt-2"
                       />
                     </div>
