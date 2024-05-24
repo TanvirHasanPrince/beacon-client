@@ -3,3 +3,6 @@ export const tailwindButtonClass = `mt-2 mb-8 bg-gradient-to-r from-violet-300 t
 export const tailwindPageTitleClass = `text-2xl font-bold tracking-tighter md:text-4xl mt-2`;
 
 export const tailwindLogoutButtonClass = `mt-2 mb-8 bg-gradient-to-r from-violet-300 to-fuchsia-300 hover:bg-blue-600 text-black font-semibold py-2`;
+
+export const tailwindAppBackground = `bg-gradient-to-r from-violet-300 to-fuchsia-300`;
+export const tailwindTitleClipBrackground = `bg-gradient-to-r from-pink-700 via-blue-700 to-blue-500 inline-block text-transparent bg-clip-text`;
