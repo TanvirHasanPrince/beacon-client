@@ -15,9 +15,10 @@ import Link from "next/link";
 import { useDoctorQuery } from "@/redux/api/doctorApi";
 import { getUserInfo } from "@/services/auth.service";
 import { tailwindButtonClass } from "@/components/tailwindClasses";
+import { capitalizeWords } from "@/utils/helperFunctions";
 
 const DoctorProfilePage = () => {
-  const { role, userId } = getUserInfo() as any;
+  const { userId } = getUserInfo() as any;
   const { data: doctorData, isLoading, isError } = useDoctorQuery(userId);
 
   if (isLoading) {
@@ -126,12 +127,10 @@ const DoctorProfilePage = () => {
               <span>{licenseNumber}</span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaInfoCircle className="text-pink-500 mr-2" />
-              <span>{affiliation}</span>
+              <span> Affiliation {capitalizeWords(affiliation)}</span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaInfoCircle className="text-pink-500 mr-2" />
-              <span>{specializations}</span>
+              <span>Specialization {capitalizeWords(specializations)}</span>
             </div>
           </div>
 
@@ -147,11 +146,12 @@ const DoctorProfilePage = () => {
                     key={index}
                     className="rounded-lg shadow-lg overflow-hidden mx-2 mb-4 flex flex-col items-center justify-center"
                   >
-                    <div className="relative h-24 w-24 mx-auto">
+                    <div className="relative h-full w-full mx-auto">
                       <Image
                         src={doc}
                         alt={`Verification Document ${index}`}
-                        fill
+                        width={250}
+                        height={250}
                         className="object-cover rounded-2xl mt-2"
                       />
                     </div>
@@ -166,19 +166,6 @@ const DoctorProfilePage = () => {
             <Link href={"/doctor/documents/addDocument"}>
               <button className={`${tailwindButtonClass}`}>Add Document</button>
             </Link>
-          </div>
-
-          <div className="mt-4">
-            <div className="mb-2">
-              <FaClock className="inline-block mr-2 text-pink-500" />
-              <span className="font-semibold">Created on:</span>{" "}
-              {formattedCreatedAt}
-            </div>
-            <div className="mb-2">
-              <FaClock className="inline-block mr-2 text-pink-500" />
-              <span className="font-semibold">Last updated:</span>{" "}
-              {formattedUpdatedAt}
-            </div>
           </div>
         </div>
       </div>
