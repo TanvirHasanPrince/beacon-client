@@ -19,7 +19,7 @@ type FormValues = {
 const loginButtonStyle = {
   margin: "15px auto", // Adjusted margin for centering
   padding: "0 30px",
-  color: "white",
+  color: "black",
   backgroundImage: "linear-gradient(to right, #D8B4FE, #F0ABFC)", // Gradient color
   border: "none",
   borderRadius: "6px",
