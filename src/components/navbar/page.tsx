@@ -3,7 +3,7 @@ import { authKey } from "@/constants/storageKey";
 import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +14,21 @@ const Navbar = () => {
     removeUserInfo(authKey);
     router.push("/login");
   };
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (event.target && (event.target as HTMLElement).closest("nav")) {
+        return;
+      }
+      setIsOpen(false);
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
 
   return (
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800">
@@ -64,7 +79,7 @@ const Navbar = () => {
             </div>
           </div>
           <div
-            className={`mt-5 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
+            className={`mt-2 overflow-hidden absolute inset-x-0 z-20 w-72 px-6 py-4 transition-all duration-300 ease-in-out bg-gradient-to-r from-pink-100 to-blue-100 dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center ${
               isOpen
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 -translate-x-full"

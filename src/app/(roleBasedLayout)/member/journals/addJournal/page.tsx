@@ -56,8 +56,6 @@ const AddJournalEntry = () => {
       const sentimentResult = getSentiment(data.content);
       data.sentimentResult = sentimentResult.mood;
 
-      console.log(data);
-
       await addJournalEntry(data);
       toast.success("Journal entry added successfully!");
       router.push("/member/journals/myJournals");

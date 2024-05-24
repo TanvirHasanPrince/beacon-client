@@ -1,27 +1,25 @@
 "use client";
 import { useAddMemberMutation } from "@/redux/api/memberApi";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import "../../../../helpers/envConfig";
-import { ENUM_OF_INTERESTS } from "@/enums/sharedEnums";
+import { ENUM_OF_COUNTRIES, ENUM_OF_INTERESTS } from "@/enums/sharedEnums";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Select, { ActionMeta, MultiValue } from "react-select";
 
 const MemberSignUpPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    reset,
   } = useForm();
   const [addMemberMutation, { isLoading, isError, error }] =
     useAddMemberMutation();
 
-  // Array of interests
-  const interests = [
-    "Football",
-    "Gardening",
-    "Reading",
-    "Cooking",
-    "Traveling",
-  ];
+  const router = useRouter();
 
   const uploadToCloudinary = async (file: any) => {
     const formData = new FormData();
@@ -50,13 +48,23 @@ const MemberSignUpPage = () => {
       // Upload cover photo
       const coverPhotoUrl = await uploadToCloudinary(data.coverPhoto[0]);
       data.coverPhoto = coverPhotoUrl;
+      console.log(data);
 
       // Submit the form data with updated URLs
       const response = await addMemberMutation(data);
+      reset();
+      toast.success("Your account created successfully! Please login");
+
+      router.push("/login");
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
+
+  const options = Object.values(ENUM_OF_INTERESTS).map((interest) => ({
+    value: interest,
+    label: interest,
+  }));
 
   return (
     <div className="container mx-auto flex flex-col items-center justify-center px-12">
@@ -125,26 +133,39 @@ const MemberSignUpPage = () => {
         </div>
         <div className="mb-4 w-full">
           <label className="block mb-2">Country</label>
-          <input
-            type="text"
+          <select
             {...register("country")}
             className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <label className="block mb-2">Interest</label>
-          <select
-            {...register("interest")}
-            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-            multiple // enable multiple selection
           >
-            {/* Map over the values of the ENUM_OF_INTERESTS enum to generate options */}
-            {Object.values(ENUM_OF_INTERESTS).map((interest) => (
-              <option key={interest} value={interest}>
-                {interest}
+            {Object.values(ENUM_OF_COUNTRIES).map((country) => (
+              <option key={country} value={country}>
+                {country}
               </option>
             ))}
           </select>
+        </div>
+        <div className="mb-4 w-full">
+          <label className="block mb-2">Interest</label>
+          <Controller
+            name="interest"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                isMulti
+                options={options}
+                className="w-full"
+                classNamePrefix="react-select"
+                onChange={(
+                  newValue: MultiValue<{ value: string; label: string }>
+                ) => onChange(newValue.map((option) => option.value))}
+                value={value?.map((option: string) => ({
+                  value: option,
+                  label: option, // Corrected 'lable' to 'label'
+                }))}
+              />
+            )}
+          />
         </div>
 
         <div className="mb-4 w-full">
