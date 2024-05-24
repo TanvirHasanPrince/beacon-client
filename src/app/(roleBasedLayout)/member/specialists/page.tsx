@@ -21,6 +21,13 @@ const SpecialistsPage = () => {
 
   const doctorsDataArray = doctorsData?.data;
 
+  function capitalizeWords(str: string) {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  }
+
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Heading */}
@@ -45,7 +52,8 @@ const SpecialistsPage = () => {
                   />
                   <div className="flex flex-col justify-start">
                     <p className="text-sm mb-2 text-gray-600">
-                      <strong>Specializations:</strong> {doctor.specializations}
+                      <strong>Specializations:</strong>{" "}
+                      {capitalizeWords(doctor.specializations)}
                     </p>
 
                     <p className="text-sm mb-2 text-gray-600">
