@@ -23,6 +23,24 @@ const DoctorSignUpPage = () => {
 
   const router = useRouter();
 
+  const uploadToCloudinary = async (file: any) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "beaconPreset");
+
+    const uploadResponse = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
+      { method: "POST", body: formData }
+    );
+
+    if (!uploadResponse.ok) {
+      throw new Error("Image upload failed");
+    }
+
+    const imageData = await uploadResponse.json();
+    return imageData.secure_url;
+  };
+
   const onSubmit = async (data: any) => {
     const rawImage = data.profilePhoto[0];
     const formData = new FormData();
@@ -41,6 +59,10 @@ const DoctorSignUpPage = () => {
 
       const imageData = await uploadResponse.json();
       data.profilePhoto = imageData.secure_url;
+
+      // Upload cover photo
+      const coverPhotoUrl = await uploadToCloudinary(data.coverPhoto[0]);
+      data.coverPhoto = coverPhotoUrl;
 
       // Upload verification documents
       const verificationDocuments = Array.from(data.verificationDocuments);
@@ -257,6 +279,21 @@ const DoctorSignUpPage = () => {
           />
           {errors.profilePhoto && (
             <span className="text-red-500">Please upload a profile photo.</span>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label className="block mb-2" htmlFor="coverPhoto">
+            Cover Photo
+          </label>
+          <input
+            type="file"
+            {...register("coverPhoto", { required: true })}
+            id="coverPhoto"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+          />
+          {errors.coverPhoto && (
+            <span className="text-red-500">Please upload a cover photo.</span>
           )}
         </div>
         <div className="flex justify-center ">

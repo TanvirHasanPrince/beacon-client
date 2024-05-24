@@ -48,7 +48,6 @@ const MemberSignUpPage = () => {
       // Upload cover photo
       const coverPhotoUrl = await uploadToCloudinary(data.coverPhoto[0]);
       data.coverPhoto = coverPhotoUrl;
-      console.log(data);
 
       // Submit the form data with updated URLs
       const response = await addMemberMutation(data);
