@@ -2,6 +2,8 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { FaPlay, FaPause } from "react-icons/fa";
+
 import meditating_girl from "../../../../../assets/self-care/meditation/meditating_girl.jpg";
 import boy_mountain_meditation from "../../../../../assets/self-care/meditation/A_boy_meditating_in_a_mountain_Surrounded_by_river.jpg";
 import girl_rainbow_meditation from "../../../../../assets/self-care/meditation/A_girl_meditating_in_cloud_Surrounded_by_rainbow.jpg";
@@ -63,15 +65,15 @@ const MeditationPage = () => {
     }
   };
 
-  const handleProgressChange = (event: any) => {
+  const handleProgressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (audioRef.current) {
-      const newTime = (event.target.value / 100) * duration;
+      const newTime = (event.target.valueAsNumber / 100) * duration;
       setCurrentTime(newTime);
       audioRef.current.currentTime = newTime;
     }
   };
 
-  const handleTrackChange = (newIndex: any) => {
+  const handleTrackChange = (newIndex: number) => {
     if (audioRef.current) {
       audioRef.current.src = playlist[newIndex].src;
       audioRef.current.load();
@@ -106,7 +108,7 @@ const MeditationPage = () => {
     }
   }, []);
 
-  const handlePlaylistPlayPause = (index: any) => {
+  const handlePlaylistPlayPause = (index: number) => {
     if (currentTrackIndex === index) {
       if (isPlaying) {
         audioRef.current?.pause();
@@ -136,19 +138,22 @@ const MeditationPage = () => {
           width={500}
           height={500}
           alt="track image"
+          className="w-full h-auto object-cover"
         />
       </div>
-      <div className="song-info text-center">
-        <p>Now Playing</p>
-        <p>{playlist[currentTrackIndex].title}</p>
+      <div className="song-info text-center text-black">
+        <p className="text-lg font-bold">Now Playing</p>
+        <p className="text-md">{playlist[currentTrackIndex].title}</p>
       </div>
       <button
         onClick={handleClickPlayPause}
         className={`hover:text-gray-200 focus:outline-none mt-4 ${
-          isPlaying ? "bg-red-500 text-white" : "bg-green-500 text-white"
-        } px-4 py-1 rounded-md font-semibold transition-colors duration-300 `}
+          isPlaying
+            ? "bg-gradient-to-r from-violet-300 to-fuchsia-300 text-black"
+            : "bg-gradient-to-r from-violet-300 to-fuchsia-300 text-black"
+        } px-4 py-1 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center`}
       >
-        {isPlaying ? "Pause" : "Play"}
+        {isPlaying ? <FaPause /> : <FaPlay />}
       </button>
       <input
         type="range"
@@ -156,10 +161,9 @@ const MeditationPage = () => {
         max="100"
         value={duration ? (currentTime / duration) * 100 : 0}
         onChange={handleProgressChange}
-        className="w-full h-2 rounded-lg mt-4"
+        className="w-full h-2 bg-black-200 rounded-lg mt-4 appearance-none cursor-pointer"
       />
-       
-      <div className="flex justify-center items-center text-sm">
+      <div className="flex justify-center items-center text-sm text-black mt-2">
         <p className="px-4">
           Elapsed Time:{" "}
           {Math.floor(currentTime / 60)
@@ -181,12 +185,21 @@ const MeditationPage = () => {
           <div
             key={index}
             className={`playlist-item flex justify-between items-center mb-2 p-2 text-black rounded-lg ${
-              index === currentTrackIndex ? "bg-[#4cdf9f]" : ""
-            }`}
+              index === currentTrackIndex
+                ? "bg-gradient-to-r from-violet-300 to-fuchsia-300"
+                : "bg-white"
+            } shadow-md`}
           >
-            <p>{track.title}</p>
-            <button onClick={() => handlePlaylistPlayPause(index)}>
-              {index === currentTrackIndex && isPlaying ? "Pause" : "Play"}
+            <p className="text-sm font-medium">{track.title}</p>
+            <button
+              onClick={() => handlePlaylistPlayPause(index)}
+              className="text-gray-500 hover:text-gray-900 focus:outline-none"
+            >
+              {index === currentTrackIndex && isPlaying ? (
+                <FaPause />
+              ) : (
+                <FaPlay />
+              )}
             </button>
           </div>
         ))}

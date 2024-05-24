@@ -12,6 +12,7 @@
     "@ant-design/nextjs-registry": "^1.0.0",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.19.0",
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "@next/env": "^14.2.3",
     "@reduxjs/toolkit": "^2.2.4",
     "@zegocloud/zego-uikit-prebuilt": "^2.2.0",
