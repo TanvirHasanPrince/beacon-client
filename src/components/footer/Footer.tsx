@@ -27,8 +27,8 @@ const Footer = () => {
             <p className="text-pink-600 mb-2">API Reference</p>
             <p className="text-pink-600">Tutorials</p>
           </div>
-          <div className="col-span-1">
-            <h3 className="text-pink-700 font-bold mb-4">Contact</h3>
+          <div className="col-span-1 flex items-center justify-center flex-col">
+            <h3 className="text-pink-700 font-bold mb-4 ">Contact</h3>
             <p className="text-pink-600 mb-2 flex items-center">
               <FaEnvelope className="mr-2" />
               contact@company.com
