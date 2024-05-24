@@ -14,6 +14,7 @@ import { useDoctorQuery } from "@/redux/api/doctorApi";
 import SpinAnimation from "@/components/ui/SpinAnimation";
 import { tailwindButtonClass } from "@/components/tailwindClasses";
 import Link from "next/link";
+import { capitalizeWords } from "@/utils/helperFunctions";
 
 interface IParams {
   id: string;
@@ -100,8 +101,8 @@ const SpecialistDetailsPage = ({ params }: { params: IParams }) => {
         <div className="px-6 py-4">
           <div className="mb-4 text-gray-700">
             <div className="flex items-center mb-2">
-              <FaInfoCircle className="text-pink-500 mr-2" />
-              <span className="font-semibold">About Me</span>
+              {/* <FaInfoCircle className="text-pink-500 mr-2" /> */}
+              <span className="font-semibold">Work Experience</span>
             </div>
             <p>{workExperience}</p>
           </div>
@@ -115,21 +116,36 @@ const SpecialistDetailsPage = ({ params }: { params: IParams }) => {
               <span>{mobile}</span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaGlobeAmericas className="text-pink-500 mr-2" />
-              <span>{country}</span>
+              {/* <FaGlobeAmericas className="text-pink-500 mr-2" /> */}
+              <span>
+                {" "}
+                <span className="font-semibold">Country:</span> {country}
+              </span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaInfoCircle className="text-pink-500 mr-2" />
+              {/* <FaInfoCircle className="text-pink-500 mr-2" /> */}
 
-              <span> License Number: {licenseNumber}</span>
+              <span>
+                {" "}
+                <span className="font-semibold">License Number:</span>{" "}
+                {licenseNumber}
+              </span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaHospital className="text-pink-500 mr-2" />
-              <span>{affiliation}</span>
+              {/* <FaHospital className="text-pink-500 mr-2" /> */}
+              <span>
+                {" "}
+                <span className="font-semibold">Affiliation:</span>{" "}
+                {capitalizeWords(affiliation)}
+              </span>
             </div>
             <div className="flex items-center text-gray-700">
-              <FaInfoCircle className="text-pink-500 mr-2" />
-              <span>{specializations}</span>
+              {/* <FaInfoCircle className="text-pink-500 mr-2" /> */}
+              <span>
+                {" "}
+                <span className="font-semibold">Specializations: </span>
+                {capitalizeWords(specializations)}
+              </span>
             </div>
           </div>
 

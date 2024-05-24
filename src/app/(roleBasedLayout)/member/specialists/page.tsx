@@ -2,6 +2,7 @@
 import { tailwindPageTitleClass } from "@/components/tailwindClasses";
 import SpinAnimation from "@/components/ui/SpinAnimation";
 import { useDoctorsQuery } from "@/redux/api/doctorApi";
+import { capitalizeWords } from "@/utils/helperFunctions";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,13 +21,6 @@ const SpecialistsPage = () => {
   }
 
   const doctorsDataArray = doctorsData?.data;
-
-  function capitalizeWords(str: string) {
-    return str
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-  }
 
   return (
     <div className="flex flex-col items-center justify-center">
