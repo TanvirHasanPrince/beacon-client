@@ -64,7 +64,7 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+    <div className="p-6  rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">
         Sentiment Analysis
       </h2>
