@@ -25,7 +25,7 @@ const loginButtonStyle = {
   border: "none",
   borderRadius: "6px",
   fontSize: "1.1rem",
-  fontWeight: "bold",
+  fontWeight: "400",
   letterSpacing: "0.5px",
   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // Box shadow for depth
   transition: "background-color 0.3s ease", // Smooth transition
@@ -90,7 +90,6 @@ const LoginPage = () => {
                 name="email"
                 type="text"
                 size="large"
-                label="Email"
                 placeholder="email@gmail.com"
               />
             </div>
@@ -103,7 +102,6 @@ const LoginPage = () => {
                 name="password"
                 type="password"
                 size="large"
-                label="Password"
                 placeholder="Type your password"
               />
             </div>
@@ -123,27 +121,32 @@ const LoginPage = () => {
                   htmlType="submit"
                   disabled={isButtonDisabled}
                   style={loginButtonStyle}
+                  size="large"
                 >
                   Login
                 </Button>
-                <p> Don&apos;t have an account? </p>
+                <p className="text-pink-500"> Don&apos;t have an account? </p>
                 <Link href={"/member/signup"}>
                   <Button
                     type="primary"
                     htmlType="submit"
                     disabled={isButtonDisabled}
                     style={loginButtonStyle}
+                    size="large"
                   >
                     Sign Up
                   </Button>
                 </Link>
-                <p> Are you a Mental Health Professional? </p>
+                <p className="text-pink-500">
+                  Are you a Mental Health Professional?{" "}
+                </p>
                 <Link href={"/doctor/signup"} className="flex flex-row">
                   <Button
                     type="primary"
                     htmlType="submit"
                     disabled={isButtonDisabled}
                     style={loginButtonStyle}
+                    size="large"
                   >
                     Sign Up Here
                   </Button>
