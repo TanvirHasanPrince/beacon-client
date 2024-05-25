@@ -125,7 +125,7 @@ const LoginPage = () => {
                 >
                   Login
                 </Button>
-                <p className="text-pink-500"> Don&apos;t have an account? </p>
+                <p className="text-sky-500"> Don&apos;t have an account? </p>
                 <Link href={"/member/signup"}>
                   <Button
                     type="primary"
@@ -137,7 +137,7 @@ const LoginPage = () => {
                     Sign Up
                   </Button>
                 </Link>
-                <p className="text-pink-500">
+                <p className="text-sky-500">
                   Are you a Mental Health Professional?{" "}
                 </p>
                 <Link href={"/doctor/signup"} className="flex flex-row">

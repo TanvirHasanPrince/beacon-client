@@ -49,14 +49,6 @@ const SpecialistsPage = () => {
                       <strong>Specializations:</strong>{" "}
                       {capitalizeWords(doctor.specializations)}
                     </p>
-
-                    <p className="text-sm mb-2 text-gray-600">
-                      <strong>Availability:</strong>{" "}
-                      {doctor.availability.join(", ")}
-                    </p>
-                    <p className="text-sm mb-2 text-gray-600">
-                      <strong>Work Experience:</strong> {doctor.workExperience}
-                    </p>
                   </div>
                 </div>
               </div>
