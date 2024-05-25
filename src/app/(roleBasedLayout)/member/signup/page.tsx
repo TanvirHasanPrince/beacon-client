@@ -7,6 +7,7 @@ import { ENUM_OF_COUNTRIES, ENUM_OF_INTERESTS } from "@/enums/sharedEnums";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Select, { ActionMeta, MultiValue } from "react-select";
+import { tailwindButtonClass } from "@/components/tailwindClasses";
 
 const MemberSignUpPage = () => {
   const {
@@ -204,10 +205,7 @@ const MemberSignUpPage = () => {
           )}
         </div>
         <div className="flex justify-center ">
-          <button
-            type="submit"
-            className="mt-2 mb-8 bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
+          <button type="submit" className={`${tailwindButtonClass}`}>
             Submit
           </button>
         </div>

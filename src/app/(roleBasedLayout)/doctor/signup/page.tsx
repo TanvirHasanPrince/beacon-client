@@ -11,6 +11,7 @@ import {
 } from "@/enums/sharedEnums";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { tailwindButtonClass } from "@/components/tailwindClasses";
 
 const DoctorSignUpPage = () => {
   const {
@@ -297,10 +298,7 @@ const DoctorSignUpPage = () => {
           )}
         </div>
         <div className="flex justify-center ">
-          <button
-            type="submit"
-            className="mt-2 mb-8  bg-red-500 hover:bg-blue-600 text-white font-semibold py-2 px-28 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
+          <button type="submit" className={`${tailwindButtonClass}`}>
             Submit
           </button>
         </div>
