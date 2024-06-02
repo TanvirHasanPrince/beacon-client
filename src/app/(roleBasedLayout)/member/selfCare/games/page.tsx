@@ -1,12 +1,13 @@
 "use client";
 import { tailwindButtonClass } from "@/components/tailwindClasses";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 const TicTacToe = () => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
 
-  const handleClick = (index: any) => {
+  const handleClick = (index: number) => {
     if (board[index] || calculateWinner(board)) return;
 
     const newBoard = board.slice();
@@ -15,7 +16,7 @@ const TicTacToe = () => {
     setIsXNext(!isXNext);
   };
 
-  const calculateWinner = (board: any) => {
+  const calculateWinner = (board: (string | null)[]) => {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -36,15 +37,28 @@ const TicTacToe = () => {
     return null;
   };
 
-  const winner = calculateWinner(board);
-  const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${isXNext ? "X" : "O"}`;
+  const isBoardFull = (board: (string | null)[]) => {
+    return board.every((cell) => cell !== null);
+  };
+
+  useEffect(() => {
+    const winner = calculateWinner(board);
+    if (winner) {
+      toast.success(`Winner: ${winner}`);
+    } else if (isBoardFull(board)) {
+      toast.success("Game is a draw!");
+    }
+  }, [board]);
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setIsXNext(true);
   };
+
+  const winner = calculateWinner(board);
+  const status = winner
+    ? `Winner: ${winner}`
+    : `Next player: ${isXNext ? "X" : "O"}`;
 
   return (
     <div style={styles.container}>
@@ -74,9 +88,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    height: "100vh",
     fontFamily: "Arial, sans-serif",
-    // background: "linear-gradient(to right, #ffecd2, #fcb69f)",
   },
   title: {
     fontSize: "36px",
@@ -84,9 +96,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#333",
   },
   status: {
-    marginBottom: "20px",
     fontSize: "24px",
     color: "#555",
+    marginBottom: "10px",
   },
   board: {
     display: "grid",
@@ -105,9 +117,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
     transition: "background 0.3s",
   },
-  cellHover: {
-    background: "#f0f0f0",
-  },
   button: {
     marginTop: "20px",
     padding: "10px 20px",
@@ -118,9 +127,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: "none",
     borderRadius: "5px",
     transition: "background 0.3s",
-  },
-  buttonHover: {
-    background: "#555",
   },
 };
 
