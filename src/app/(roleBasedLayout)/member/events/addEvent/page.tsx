@@ -62,7 +62,7 @@ const AddEvent = () => {
         const imageData = await uploadResponse.json();
         data.photo = imageData.secure_url;
       }
-
+      console.log(data);
       await addEventMutation(data);
       toast.success(`Event added successfully!`);
       router.push("/member/events/myEvents");
