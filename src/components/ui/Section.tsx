@@ -60,7 +60,9 @@ const Section: React.FC<SectionProps> = ({
         <p className="text-xl text-center text-gray-600 mb-8">{description}</p>
       </div>
       <div className="flex justify-center mb-8">
-        <Lottie animationData={animationData} loop={true} />
+        <div className="w-full max-w-xs md:max-w-md lg:max-w-lg">
+          <Lottie animationData={animationData} loop={true} />
+        </div>
       </div>
       {button && (
         <div className="flex justify-center">
