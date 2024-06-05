@@ -64,11 +64,11 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
   };
 
   return (
-    <div className="p-6  rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+    <div className="p-4 md:p-6 rounded-lg shadow-md">
+      <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-800">
         Sentiment Analysis
       </h2>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
           <XAxis
@@ -76,7 +76,7 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
             tickFormatter={(str) => format(new Date(str), "MMM do")}
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 12, fontWeight: 500, color: "#666" }}
+            tick={{ fontSize: 10, fontWeight: 500, color: "#666" }}
           />
           <YAxis
             domain={[-2, 2]}
@@ -89,13 +89,13 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
             }}
             axisLine={false}
             tickLine={false}
-            tick={{ fontSize: 12, fontWeight: 500, color: "#666" }}
+            tick={{ fontSize: 10, fontWeight: 500, color: "#666" }}
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
             wrapperStyle={{
-              paddingTop: 20,
-              fontSize: 14,
+              paddingTop: 10,
+              fontSize: 12,
               fontWeight: 500,
               color: "#333",
             }}
@@ -105,10 +105,11 @@ const SentimentAnalysisChart: React.FC<SentimentAnalysisChartProps> = ({
             dataKey="sentiment"
             stroke="#4f46e5"
             strokeWidth={2}
-            dot={{ stroke: "#4f46e5", strokeWidth: 2, r: 5 }}
-            activeDot={{ stroke: "#4f46e5", strokeWidth: 5, r: 8 }}
+            dot={{ stroke: "#4f46e5", strokeWidth: 2, r: 3 }}
+            activeDot={{ stroke: "#4f46e5", strokeWidth: 5, r: 6 }}
             isAnimationActive={true}
             animationDuration={500}
+            connectNulls={true} // This ensures the line connects between points even if there are null values
           />
         </LineChart>
       </ResponsiveContainer>

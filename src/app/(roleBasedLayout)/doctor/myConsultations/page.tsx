@@ -4,8 +4,6 @@ import { useMemberQuery } from "@/redux/api/memberApi";
 import { getUserInfo } from "@/services/auth.service";
 import Link from "next/link";
 import React from "react";
-import { FaCalendarAlt, FaUserAlt, FaLink } from "react-icons/fa";
-import Image from "next/image"; // Assuming you have images for members
 import SentimentAnalysisChart from "@/components/ui/SentimentAnalysisChart";
 
 const DoctorConsultationsPage = () => {
