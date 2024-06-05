@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { FaPlane, FaSkull } from "react-icons/fa";
-import bgSky from "../../../../../../assets/game/DALLE2024-06-0409.59.43-Avibrantskybackgroundforagame.Theskyisagradientfromarichblueatthetoptoalighterbluenearthehorizon.Fluffywhitecloudsaresc-ezgif.com-webp-to-jpg-converter.jpg";
 
 const FlappyPlane = () => {
   const [planePosition, setPlanePosition] = useState(100); // Initial vertical position of the plane
@@ -119,9 +118,6 @@ const FlappyPlane = () => {
         width: `${gameWidth}px`,
 
         backgroundColor: "skyblue",
-        backgroundImage: `url(${bgSky})`, // Set the background image
-        backgroundSize: "cover", // Adjust the background size as needed
-        backgroundPosition: "center", // Adjust the background position as needed
       }}
     >
       {/* Render the plane */}
