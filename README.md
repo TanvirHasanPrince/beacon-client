@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Beacon- Your Mental Health Companion**
 
-## Getting Started
+**Social networking app designed to help people find genuine connections and combat loneliness.** The app uses advanced algorithms and personalized matching to connect users with others who share similar interests, values, and life experiences. This will also help users to connect with verified psychiatrists, therapists, and counselors. 
 
-First, run the development server:
+# **Why is this App Needed**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Research indicates that chronic loneliness significantly correlates with mental health disorders. For instance, individuals reporting loneliness are 1.5 times more likely to develop depression and anxiety. Moreover, loneliness amplifies the risk of suicidal behavior, with studies showing a 50% increase in suicide risk among those who feel socially isolated. Concurrently, untreated mental health conditions, prevalent among lonely individuals, contribute substantially to suicide rates, accounting for approximately 90% of all suicides worldwide. This platform will address these issues and provide solutions and necessary steps.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Key Features:
+- **Dual User Types**: Members and mental health professionals.
+- **Events**: Create and join events to connect with others.
+- **Daily Journals**: Log your thoughts and feelings, analyzed through advanced sentiment analysis to help professionals understand your mental state over time.
+- **Consultations**: Book and consult with professionals via video call.
+- **Self-Help Tools**: Access meditation, music, stories, mental health techniques, yoga, and games.
+- **Kindness Challenges**: Engage in acts of kindness to foster a compassionate community and track your progress.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Tech Stack:
+## Frontend:
+- **Next.js**: React framework
+- **Redux Toolkit**: State management
+- **Ant Design**: UI component library
+- **Cloudinary**: Image and video management
+- **axios**: HTTP client
+- **date-fns**: Date utilities
+- **react-hook-form**: Form management
+- **react-hot-toast**: Notification library
+- **react-icons**: Icon library
+- **recharts**: Chart library
+- **sentiment**: Sentiment analysis library
+- **stopword**: Stopword removal library
+- **TailwindCSS**: Utility-first CSS framework
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Backend:
+- **Node.js**: JavaScript runtime
+- **Express.js**: Web application framework
+- **PostgreSQL**: Database
+- **Sequelize**: Object-Relational Mapping
+- **Zod**: Validation library
+- **jsonwebtoken**: JSON Web Token implementation
 
-## Learn More
+# AI-Powered Insights:
+Beacon uses Natural Language Processing (NLP) to perform sentiment analysis on user journal entries. By analyzing the content of these journals, the app can determine whether the sentiments expressed are positive, negative, or neutral. This helps mental health professionals quickly gauge the emotional state of their patients over time, providing a valuable tool for tracking and managing mental health.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Live Website**: [Beacon](https://beacon-client-dun.vercel.app/)
