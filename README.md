@@ -43,3 +43,4 @@ Beacon uses Natural Language Processing (NLP) to perform sentiment analysis on u
 
 
 **Live Website**: [Beacon](https://beacon-client-dun.vercel.app/)
+**Video Demo**: [Beacon](https://www.youtube.com/watch?v=nuY_9Bmc5xo)
